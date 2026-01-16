@@ -27,14 +27,15 @@
         .container { max-width: 100%; margin: 0 auto; padding: 8px; display: grid; grid-template-columns: 1fr; gap: 12px; }
         .game-header {
             background: linear-gradient(135deg, #8b00ff 0%, #ff1493 50%, #32cd32 100%);
-            border-radius: 10px; padding: 15px 10px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-radius: 8px; padding: 8px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            position: sticky; top: 0; z-index: 200;
         }
-        .game-header h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 5px; }
-        .game-header p { font-size: 0.85rem; opacity: 0.95; }
-        .game-info { display: flex; justify-content: space-around; margin-top: 8px; gap: 6px; flex-wrap: wrap; }
+        .game-header h1 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 3px; }
+        .game-header p { font-size: 0.65rem; opacity: 0.9; margin-bottom: 4px; }
+        .game-info { display: flex; justify-content: space-around; margin-top: 4px; gap: 4px; flex-wrap: wrap; }
         .info-badge {
-            background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 12px;
-            font-size: 0.7rem; backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;
+            font-size: 0.6rem; backdrop-filter: blur(10px);
         }
         .game-main { display: grid; grid-template-columns: 1fr; gap: 12px; }
         .game-board {
@@ -43,8 +44,8 @@
         }
         .board-container {
             position: relative; width: 100%; height: 0; padding-bottom: 100%;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
-            border-radius: 50%; box-shadow: inset 0 0 30px rgba(138,43,226,0.2); touch-action: none;
+            background: linear-gradient(135deg, #fff5f8 0%, #f0e6ff 100%);
+            border-radius: 10px; box-shadow: inset 0 0 20px rgba(138,43,226,0.15); touch-action: none;
         }
         .board-inner { position: absolute; inset: 0; }
         .board-center {
@@ -56,18 +57,18 @@
         }
         .board-center-logo { font-size: 2rem; margin-bottom: 5px; }
         .board-cell {
-            position: absolute; width: 50px; height: 65px; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center; padding: 3px;
-            border-radius: 6px; font-weight: 600; font-size: 0.45rem; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            position: absolute; width: 48px; height: 48px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; padding: 2px;
+            border-radius: 6px; font-weight: 600; font-size: 0.4rem; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
             transition: transform 0.2s; border: 2px solid rgba(255,255,255,0.7); cursor: pointer;
         }
         .board-cell:active { transform: scale(0.95); }
-        .cell-name { font-weight: 700; line-height: 1; margin-bottom: 2px; font-size: 0.42rem; }
-        .cell-price { font-size: 0.38rem; opacity: 0.9; margin-top: 1px; }
+        .cell-name { font-weight: 700; line-height: 0.95; margin-bottom: 1px; font-size: 0.38rem; }
+        .cell-price { font-size: 0.35rem; opacity: 0.9; margin-top: 1px; }
         .cell-owner-badge {
             position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);
-            background: rgba(0,0,0,0.7); color: white; padding: 1px 4px; border-radius: 6px;
-            font-size: 0.5rem; font-weight: 700; display: flex; align-items: center; gap: 1px;
+            background: rgba(0,0,0,0.7); color: white; padding: 1px 3px; border-radius: 5px;
+            font-size: 0.45rem; font-weight: 700; display: flex; align-items: center; gap: 1px;
         }
         .cell-romantik { background: linear-gradient(135deg, var(--romantik), var(--romantik-dark)); color: white; border-color: var(--romantik-dark); }
         .cell-kuscheln { background: linear-gradient(135deg, var(--kuscheln), var(--kuscheln-dark)); color: white; border-color: var(--kuscheln-dark); }
@@ -78,20 +79,20 @@
         .cell-keuschheit { background: linear-gradient(135deg, var(--keuschheit), var(--keuschheit-dark)); color: var(--text-dark); border-color: var(--keuschheit-dark); }
         .cell-corner {
             background: linear-gradient(135deg, #6a0dad, #8a2be2); color: white;
-            font-size: 0.5rem; width: 55px; height: 55px; border-radius: 50%;
+            font-size: 0.45rem; width: 50px; height: 50px; border-radius: 50%;
         }
         .player-marker {
-            position: absolute; width: 18px; height: 18px; border-radius: 50%; display: flex;
-            justify-content: center; align-items: center; font-size: 0.75rem; box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            position: absolute; width: 16px; height: 16px; border-radius: 50%; display: flex;
+            justify-content: center; align-items: center; font-size: 0.7rem; box-shadow: 0 2px 6px rgba(0,0,0,0.5);
             z-index: 20; border: 2px solid white; animation: markerPulse 2s ease-in-out infinite;
         }
         @keyframes markerPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
         .marker-frau { background: linear-gradient(135deg, #ff1493, #ff69b4); top: -5px; left: 50%; transform: translateX(-50%); }
         .marker-mann { background: linear-gradient(135deg, #32cd32, #228b22); bottom: -5px; left: 50%; transform: translateX(-50%); }
         .hotel-indicator {
-            position: absolute; top: 1px; right: 1px; width: 14px; height: 14px;
+            position: absolute; top: 1px; right: 1px; width: 12px; height: 12px;
             background: linear-gradient(135deg, var(--gold), #ffed4e); border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; font-size: 0.6rem;
+            display: flex; justify-content: center; align-items: center; font-size: 0.55rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.4); animation: hotelGlow 2s ease-in-out infinite;
         }
         @keyframes hotelGlow { 0%, 100% { box-shadow: 0 0 8px rgba(255,215,0,0.6); } 50% { box-shadow: 0 0 15px rgba(255,215,0,1); } }
@@ -119,14 +120,15 @@
         }
         @keyframes turnGlow { 0%, 100% { box-shadow: 0 0 8px rgba(255,215,0,0.4); } 50% { box-shadow: 0 0 15px rgba(255,215,0,0.7); } }
         .dice-area {
-            display: flex; justify-content: center; align-items: center; margin: 12px 0; padding: 10px;
-            background: linear-gradient(135deg, rgba(138,43,226,0.1), rgba(255,105,180,0.1)); border-radius: 8px;
-            position: sticky; top: 8px; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: flex; justify-content: center; align-items: center; margin: 0; padding: 6px;
+            background: rgba(255,255,255,0.15); border-radius: 8px;
+            position: sticky; top: 0; z-index: 201; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
         }
         .die {
-            width: 60px; height: 60px; background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            width: 50px; height: 50px; background: linear-gradient(145deg, #ffffff, #f0f0f0);
             color: var(--text-dark); display: flex; justify-content: center; align-items: center;
-            font-size: 2rem; font-weight: 700; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-size: 1.6rem; font-weight: 700; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.3);
             user-select: none; position: relative;
         }
         .die::before {
@@ -203,12 +205,12 @@
         .trade-history-item { padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .instructions-panel {
             background: linear-gradient(135deg, rgba(138,43,226,0.1), rgba(255,105,180,0.1));
-            border-radius: 8px; padding: 10px; margin-top: 8px; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px; padding: 6px; margin-top: 6px; border: 1px solid rgba(255,255,255,0.1);
         }
-        .instructions-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--gold); }
-        .instructions-list { list-style: none; padding: 0; font-size: 0.75rem; }
-        .instructions-list li { padding: 3px 0 3px 12px; position: relative; }
-        .instructions-list li::before { content: '▸'; position: absolute; left: 0; color: #ff1493; font-weight: 700; }
+        .instructions-title { font-size: 0.7rem; font-weight: 700; margin-bottom: 4px; color: var(--gold); }
+        .instructions-list { list-style: none; padding: 0; font-size: 0.6rem; }
+        .instructions-list li { padding: 2px 0 2px 10px; position: relative; line-height: 1.2; }
+        .instructions-list li::before { content: '▸'; position: absolute; left: 0; color: #ff1493; font-weight: 700; font-size: 0.5rem; }
         .hidden { display: none !important; }
         .sidebar-section { max-height: 350px; overflow-y: auto; }
         ::-webkit-scrollbar { width: 4px; }
@@ -233,11 +235,21 @@
     <div class="container">
         <header class="game-header">
             <h1>🎭 EROPOLY 🎭</h1>
-            <p>Das erotische Paar-Spiel</p>
-            <div class="game-info">
-                <div class="info-badge">🎲 1 Würfel</div>
-                <div class="info-badge">🏘️ Monopol = Hotels</div>
-                <div class="info-badge">💰 Endstand ÷ 1000 = €</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 4px;">
+                <div style="flex: 1; text-align: left; font-size: 0.7rem;">
+                    <div style="color: #ff1493; font-weight: 700;">👑 <span id="headerFrauMoney">€3.500</span></div>
+                    <div style="font-size: 0.6rem; opacity: 0.8;"><span id="headerFrauHotels">0</span>🏨</div>
+                </div>
+                <div class="dice-area" style="flex: 0 0 auto; margin: 0; position: static;">
+                    <div class="die" id="die1">?</div>
+                </div>
+                <div style="flex: 1; text-align: right; font-size: 0.7rem;">
+                    <div style="color: #32cd32; font-weight: 700;">🔒 <span id="headerMannMoney">€3.500</span></div>
+                    <div style="font-size: 0.6rem; opacity: 0.8;"><span id="headerMannHotels">0</span>🏨</div>
+                </div>
+            </div>
+            <div style="font-size: 0.65rem; margin-top: 4px; padding: 3px 8px; background: rgba(255,215,0,0.2); border-radius: 8px; font-weight: 700;" id="headerCurrentPlayer">
+                Aktuell: 👑 Ehefrau
             </div>
         </header>
         <div class="game-main">
@@ -290,8 +302,7 @@
                     </div>
                 </section>
                 <section class="sidebar-section">
-                    <h2 class="section-title">🎲 Würfeln</h2>
-                    <div class="dice-area"><div class="die" id="die1">?</div></div>
+                    <h2 class="section-title">🎮 Steuerung</h2>
                     <button class="btn" id="rollBtn">🎲 Würfeln</button>
                     <button class="btn btn-secondary" id="endTurnBtn">⏭️ Zug beenden</button>
                 </section>
@@ -318,29 +329,29 @@
     <script>
 const gameState={currentPlayer:'frau',frauMoney:3500,mannMoney:3500,frauPosition:0,mannPosition:0,gameActive:true,tradeHistory:[],_h:{hd:1.25,rd:0.80,et:0.60,pb:250,ld:0.20}};
 const themeBlocks={romantik:{name:"💖 Romantik",color:"romantik",streets:[{id:1,name:"Rosen-Allee",price:200,hotelCost:100,owner:null,hasHotel:false},{id:2,name:"Kerzen-Gasse",price:220,hotelCost:110,owner:null,hasHotel:false},{id:3,name:"Kuss-Boulevard",price:240,hotelCost:120,owner:null,hasHotel:false}],tasks:["Ehemann: Massiere Ehefraus Rücken 3 Min","Ehefrau: Nur Unterwäsche, bleib so 2 Min","Ehemann: Küsse Ehefraus Hals 1 Min","Beide: Zungenkuss 30 Sek","Ehemann: Streichle Ehefraus Brüste (durch Kleidung) 1 Min","Ehefrau: Setz dich auf Ehemanns Schoß, 2 Min kuscheln","Ehemann: Flüstere Ehefrau 3 schmutzige Dinge ins Ohr"]},kuscheln:{name:"🤗 Kuscheln",color:"kuscheln",streets:[{id:4,name:"Kuschel-Straße",price:180,hotelCost:90,owner:null,hasHotel:false},{id:5,name:"Streichel-Gasse",price:200,hotelCost:100,owner:null,hasHotel:false},{id:6,name:"Umarmungs-Allee",price:210,hotelCost:105,owner:null,hasHotel:false}],tasks:["Ehemann: Umarme Ehefrau von hinten 1 Min, Hände auf Bauch","Wahrheit: Ehemann, wann warst du zuletzt richtig geil auf sie?","Ehemann: Streichle Haare, sage 3 Komplimente","Löffelchen 2 Min","Wahrheit: Ehefrau, wann dachtest du zuletzt an einen anderen Mann?","Ehemann: Küsse jeden Finger von Ehefrau","Wahrheit: Ehefrau, was macht dich richtig nass?"]},femdom:{name:"👠 Femdom",color:"femdom",streets:[{id:7,name:"Kommando-Allee",price:300,hotelCost:150,owner:null,hasHotel:false},{id:8,name:"Gehorsam-Gasse",price:320,hotelCost:160,owner:null,hasHotel:false},{id:9,name:"Kontroll-Straße",price:350,hotelCost:175,owner:null,hasHotel:false}],tasks:["Ehemann: Knie nieder, massiere Ehefraus Beine","Ehefrau: Gib Befehl, Ehemann führt sofort aus","Wahrheit: Ehemann, warum verdient sie die Kontrolle?","Ehemann: Hole Getränk auf Knien","Ehefrau: Ohrfeige seinen Po 5x","Wahrheit: Ehemann, wie fühlt es sich an, dominiert zu werden?","Ehemann: Ganzkörper-Massage für Ehefrau, 5 Min","Ehefrau: Ehemann muss nackt vor dir stehen, 1 Min Inspektion","Wahrheit: Ehemann, was ist das Erniedrigendste, das du für sie tun würdest?"]},bdsm:{name:"🔐 BDSM",color:"bdsm",streets:[{id:10,name:"Fessel-Gasse",price:280,hotelCost:140,owner:null,hasHotel:false},{id:11,name:"Schmerz-Allee",price:310,hotelCost:155,owner:null,hasHotel:false},{id:12,name:"Sinnes-Straße",price:330,hotelCost:165,owner:null,hasHotel:false}],tasks:["Ehemann: 10 Klapse nackter Po","Wahrheit: Ehemann, wie sehr tut es weh, wenn du nicht kommen darfst?","Ehefrau: Kneife 5x in seine Brustwarzen","Ehemann: Unbequeme Position 1 Min halten","Wahrheit: Ehefrau, was würdest du tun bei totaler Macht?","Ehemann: Augen verbinden, Ehefrau berührt 1 Min wo sie will","Ehefrau: Ziehe Ehemann an den Haaren, küsse ihn hart","Wahrheit: Ehemann, wie sehr erregt dich Schmerz von ihr?"]},hotwife:{name:"💃 Hotwife",color:"hotwife",streets:[{id:13,name:"Flirt-Boulevard",price:260,hotelCost:130,owner:null,hasHotel:false},{id:14,name:"Verführungs-Allee",price:290,hotelCost:145,owner:null,hasHotel:false},{id:15,name:"Attraktivitäts-Straße",price:310,hotelCost:155,owner:null,hasHotel:false}],tasks:["Wahrheit: Ehefrau, 3 Gründe für Treffen mit anderem Mann?","Ehefrau: Tanze 30 Sek sexy","Wahrheit: Ehefrau, beschreibe Traummann (nicht Ehemann)","Ehefrau: Zieh dich aus, präsentiere dich 1 Min","Wahrheit: Ehemann, wie würde es sich anfühlen, sie mit anderem zu sehen?","Ehefrau: Fantasie über anderen Mann (1 Min)","Wahrheit: Ehefrau, welcher Mann hat dich zuletzt angemacht?","Ehefrau: Beschreibe dein perfektes Date mit Lover","Wahrheit: Ehemann, welchen ihrer Freunde findest du am bedrohlichsten?","Ehefrau: Zeige Foto eines Mannes, den du attraktiv findest"]},cuckold:{name:"👁️ Cuckold",color:"cuckold",streets:[{id:16,name:"Beobachtungs-Gasse",price:270,hotelCost:135,owner:null,hasHotel:false},{id:17,name:"Dienst-Allee",price:300,hotelCost:150,owner:null,hasHotel:false},{id:18,name:"Demütigungs-Straße",price:340,hotelCost:170,owner:null,hasHotel:false}],tasks:["Wahrheit: Ehemann, warum verdient sie einen Besseren?","Ehemann: Danke ihr, dass sie bei dir bleibt","Wahrheit: Ehefrau, was macht andere attraktiver?","Ehemann: Putze ihre High Heels/Schuhe","Wahrheit: Ehemann, wie war es, zu schnell zu kommen letztes Mal?","Ehefrau: Beschreibe Date mit anderem, Ehemann hört zu","Wahrheit: Ehemann, würdest du Schuhe putzen nachdem sie bei anderem war?","Ehemann: Sage, was ein anderer Mann besser kann","Wahrheit: Ehefrau, wie groß sollte ein richtiger Mann sein?","Ehemann: Knie vor ihr, sage warum du es verdienst betrogen zu werden"]},keuschheit:{name:"🔒 Keuschheit",color:"keuschheit",streets:[{id:19,name:"Enthaltsamkeits-Allee",price:350,hotelCost:175,owner:null,hasHotel:false},{id:20,name:"Käfig-Gasse",price:400,hotelCost:200,owner:null,hasHotel:false},{id:21,name:"Kontrolle-Boulevard",price:450,hotelCost:225,owner:null,hasHotel:false}],tasks:["Penis-Check: Ehemann messen. Unter 15cm? Zahle €100","Wahrheit: Ehemann, wie oft denkst du täglich an Sex?","Ehefrau: Bestimme, wann er das nächste Mal kommen darf","Wahrheit: Ehefrau, warum ist dein Dildo besser als sein Schwanz?","Ehemann: Schwöre 3 Tage kein Orgasmus","Wahrheit: Ehemann, was ist schlimmer - kein Orgasmus oder sie mit anderem?","Ehefrau: Zeige Dildo, erkläre warum besser","Penis-Vergleich: Ehefrau vergleicht mit Dildo, kommentiert","Wahrheit: Ehemann, wie lange hältst du durchschnittlich?","Ehefrau: Ehemann darf sich berühren bis kurz vor Orgasmus, dann Stop"]}};
-function calcCircPos(i,t){const a=(i/t)*2*Math.PI-Math.PI/2,r=42,x=50+r*Math.cos(a),y=50+r*Math.sin(a);return{top:`${y}%`,left:`${x}%`}}
+function calcSquarePos(i,t){const perSide=7,corner=[[0,0],[0,100],[100,100],[100,0]];if(i===0)return{top:'92%',left:'92%'};if(i===7)return{top:'92%',left:'2%'};if(i===14)return{top:'2%',left:'2%'};if(i===21)return{top:'2%',left:'92%'};let side,pos;if(i<7){side=0;pos=i;return{top:'92%',left:`${92-(pos*15)}%`}}else if(i<14){side=1;pos=i-7;return{top:`${92-(pos*15)}%`,left:'2%'}}else if(i<21){side=2;pos=i-14;return{top:'2%',left:`${2+(pos*15)}%`}}else{side=3;pos=i-21;return{top:`${2+(pos*15)}%`,left:'92%`}}}
 const boardPositions=[];let ci=0;
-boardPositions.push({...calcCircPos(ci++,28),theme:'corner',name:'LOS'});
-for(let i=0;i<3;i++)boardPositions.push({...calcCircPos(ci++,28),theme:'romantik',streetId:i+1});
-boardPositions.push({...calcCircPos(ci++,28),theme:'corner',name:'💡 Event'});
-for(let i=0;i<3;i++)boardPositions.push({...calcCircPos(ci++,28),theme:'kuscheln',streetId:i+4});
-boardPositions.push({...calcCircPos(ci++,28),theme:'corner',name:'⏸️ Pause'});
-for(let i=0;i<3;i++)boardPositions.push({...calcCircPos(ci++,28),theme:'femdom',streetId:i+7});
-boardPositions.push({...calcCircPos(ci++,28),theme:'corner',name:'🅿️ Parken'});
-for(let i=0;i<3;i++)boardPositions.push({...calcCircPos(ci++,28),theme:'bdsm',streetId:i+10});
-boardPositions.push({...calcCircPos(ci++,28),theme:'corner',name:'🎁 Bonus'});
-for(let i=0;i<3;i++)boardPositions.push({...calcCircPos(ci++,28),theme:'hotwife',streetId:i+13});
-boardPositions.push({...calcCircPos(ci++,28),theme:'corner',name:'💡 Event'});
-for(let i=0;i<3;i++)boardPositions.push({...calcCircPos(ci++,28),theme:'cuckold',streetId:i+16});
-boardPositions.push({...calcCircPos(ci++,28),theme:'corner',name:'⚡ Aktion'});
-for(let i=0;i<3;i++)boardPositions.push({...calcCircPos(ci++,28),theme:'keuschheit',streetId:i+19});
+boardPositions.push({...calcSquarePos(ci++,28),theme:'corner',name:'LOS'});
+for(let i=0;i<3;i++)boardPositions.push({...calcSquarePos(ci++,28),theme:'romantik',streetId:i+1});
+boardPositions.push({...calcSquarePos(ci++,28),theme:'corner',name:'💡 Event'});
+for(let i=0;i<3;i++)boardPositions.push({...calcSquarePos(ci++,28),theme:'kuscheln',streetId:i+4});
+boardPositions.push({...calcSquarePos(ci++,28),theme:'corner',name:'⏸️ Pause'});
+for(let i=0;i<3;i++)boardPositions.push({...calcSquarePos(ci++,28),theme:'femdom',streetId:i+7});
+boardPositions.push({...calcSquarePos(ci++,28),theme:'corner',name:'🅿️ Parken'});
+for(let i=0;i<3;i++)boardPositions.push({...calcSquarePos(ci++,28),theme:'bdsm',streetId:i+10});
+boardPositions.push({...calcSquarePos(ci++,28),theme:'corner',name:'🎁 Bonus'});
+for(let i=0;i<3;i++)boardPositions.push({...calcSquarePos(ci++,28),theme:'hotwife',streetId:i+13});
+boardPositions.push({...calcSquarePos(ci++,28),theme:'corner',name:'💡 Event'});
+for(let i=0;i<3;i++)boardPositions.push({...calcSquarePos(ci++,28),theme:'cuckold',streetId:i+16});
+boardPositions.push({...calcSquarePos(ci++,28),theme:'corner',name:'⚡ Aktion'});
+for(let i=0;i<3;i++)boardPositions.push({...calcSquarePos(ci++,28),theme:'keuschheit',streetId:i+19});
 function initGame(){renderBoard();renderThemeBlocks();updatePlayerInfo();setupEventListeners();}
 function hasMonopoly(p,k){return themeBlocks[k].streets.every(s=>s.owner===p)}
 function getPlayerMonopolies(p){return Object.keys(themeBlocks).filter(k=>hasMonopoly(p,k))}
 function renderBoard(){const c=document.getElementById('boardContainer'),ce=c.querySelector('.board-center');c.innerHTML='';c.appendChild(ce);boardPositions.forEach((p,i)=>{const cell=document.createElement('div');cell.className=`board-cell cell-${p.theme}`;cell.style.top=p.top;cell.style.left=p.left;cell.style.transform='translate(-50%, -50%)';cell.id=`cell-${i}`;if(p.theme==='corner'){cell.innerHTML=`<div class="cell-name">${p.name}</div>`}else{const t=Object.values(themeBlocks).find(t=>t.streets.some(s=>s.id===p.streetId)),s=t?.streets.find(s=>s.id===p.streetId);if(s){cell.innerHTML=`<div class="cell-name">${s.name}</div><div class="cell-price">€${s.price}</div>`;if(s.owner){const o=document.createElement('div');o.className='cell-owner-badge';o.innerHTML=s.owner==='frau'?'👑':'🔒';cell.appendChild(o)}if(s.hasHotel){const h=document.createElement('div');h.className='hotel-indicator';h.textContent='🏨';cell.appendChild(h)}}}c.appendChild(cell)});updatePlayerMarkers()}
 function updatePlayerMarkers(){document.querySelectorAll('.player-marker').forEach(m=>m.remove());const fc=document.getElementById(`cell-${gameState.frauPosition}`),mc=document.getElementById(`cell-${gameState.mannPosition}`);if(fc){const m=document.createElement('div');m.className='player-marker marker-frau';m.textContent='👑';fc.appendChild(m)}if(mc){const m=document.createElement('div');m.className='player-marker marker-mann';m.textContent='🔒';mc.appendChild(m)}}
 function renderThemeBlocks(){const c=document.getElementById('themeBlocksContainer');c.innerHTML='';Object.entries(themeBlocks).forEach(([k,t])=>{const of=t.streets.filter(s=>s.owner==='frau').length,om=t.streets.filter(s=>s.owner==='mann').length,h=t.streets.filter(s=>s.hasHotel).length,fm=hasMonopoly('frau',k),mm=hasMonopoly('mann',k),b=document.createElement('div');b.className='theme-block';b.style.borderLeftColor=`var(--${t.color})`;b.innerHTML=`<div class="theme-header"><div class="theme-name">${t.name}${fm?'<span class="monopoly-indicator">👑 MONOPOL</span>':''}${mm?'<span class="monopoly-indicator">🔒 MONOPOL</span>':''}</div><div class="theme-stats"><span>👑${of}</span><span>🔒${om}</span><span>🏨${h}</span></div></div><div class="streets-grid">${t.streets.map(s=>`<div class="street-item"><span>${s.name}</span><span>${s.owner==='frau'?'👑':s.owner==='mann'?'🔒':'⚪'}${s.hasHotel?'🏨':''}</span></div>`).join('')}</div>`;c.appendChild(b)})}
-function updatePlayerInfo(){document.getElementById('frauMoney').textContent=`€ ${gameState.frauMoney}`;document.getElementById('mannMoney').textContent=`€ ${gameState.mannMoney}`;const as=Object.values(themeBlocks).flatMap(t=>t.streets),fs=as.filter(s=>s.owner==='frau'),ms=as.filter(s=>s.owner==='mann'),fmn=getPlayerMonopolies('frau'),mmn=getPlayerMonopolies('mann');document.getElementById('frauStreets').textContent=fs.length;document.getElementById('mannStreets').textContent=ms.length;document.getElementById('frauHotels').textContent=fs.filter(s=>s.hasHotel).length;document.getElementById('mannHotels').textContent=ms.filter(s=>s.hasHotel).length;document.getElementById('frauMonopolies').textContent=fmn.length;document.getElementById('mannMonopolies').textContent=mmn.length;document.getElementById('currentTurnDisplay').textContent=`Aktuell: ${gameState.currentPlayer==='frau'?'👑 Ehefrau':'🔒 Ehemann'}`;document.getElementById('frauCard').classList.toggle('active',gameState.currentPlayer==='frau');document.getElementById('mannCard').classList.toggle('active',gameState.currentPlayer==='mann')}
+function updatePlayerInfo(){document.getElementById('frauMoney').textContent=`€ ${gameState.frauMoney}`;document.getElementById('mannMoney').textContent=`€ ${gameState.mannMoney}`;document.getElementById('headerFrauMoney').textContent=`€${gameState.frauMoney}`;document.getElementById('headerMannMoney').textContent=`€${gameState.mannMoney}`;const as=Object.values(themeBlocks).flatMap(t=>t.streets),fs=as.filter(s=>s.owner==='frau'),ms=as.filter(s=>s.owner==='mann'),fmn=getPlayerMonopolies('frau'),mmn=getPlayerMonopolies('mann');document.getElementById('frauStreets').textContent=fs.length;document.getElementById('mannStreets').textContent=ms.length;document.getElementById('frauHotels').textContent=fs.filter(s=>s.hasHotel).length;document.getElementById('mannHotels').textContent=ms.filter(s=>s.hasHotel).length;document.getElementById('headerFrauHotels').textContent=fs.filter(s=>s.hasHotel).length;document.getElementById('headerMannHotels').textContent=ms.filter(s=>s.hasHotel).length;document.getElementById('frauMonopolies').textContent=fmn.length;document.getElementById('mannMonopolies').textContent=mmn.length;document.getElementById('currentTurnDisplay').textContent=`Aktuell: ${gameState.currentPlayer==='frau'?'👑 Ehefrau':'🔒 Ehemann'}`;document.getElementById('headerCurrentPlayer').textContent=`Aktuell: ${gameState.currentPlayer==='frau'?'👑 Ehefrau':'🔒 Ehemann'}`;document.getElementById('frauCard').classList.toggle('active',gameState.currentPlayer==='frau');document.getElementById('mannCard').classList.toggle('active',gameState.currentPlayer==='mann')}
 function rollDice(){if(!gameState.gameActive)return;const d=document.getElementById('die1');d.classList.add('rolling');setTimeout(()=>{let r=Math.floor(Math.random()*6)+1;if(gameState.currentPlayer==='frau'&&Math.random()<gameState._h.ld)r=Math.min(6,r+1);d.textContent=r;d.classList.remove('rolling');setTimeout(()=>{movePlayer(r);document.getElementById('rollBtn').disabled=true},300)},600)}
 function movePlayer(s){const p=gameState.currentPlayer;let o=p==='frau'?gameState.frauPosition:gameState.mannPosition,n=(o+s)%boardPositions.length;if(p==='frau')gameState.frauPosition=n;else gameState.mannPosition=n;if(n<o)collectPassGo(p);updatePlayerMarkers();updatePlayerInfo();setTimeout(()=>handleCellLanding(n),500)}
 function handleCellLanding(pos){const c=boardPositions[pos],p=gameState.currentPlayer;if(c.theme==='corner'){handleCorner(c.name,p)}else{const t=Object.values(themeBlocks).find(t=>t.streets.some(s=>s.id===c.streetId)),s=t?.streets.find(s=>s.id===c.streetId),tk=Object.keys(themeBlocks).find(k=>themeBlocks[k]===t);if(!s.owner){offerPurchase(p,s)}else if(s.owner!==p&&s.hasHotel){handleHotelLanding(p,s,t)}else if(s.owner===p&&!s.hasHotel&&hasMonopoly(p,tk)){offerHotel(p,s)}}}

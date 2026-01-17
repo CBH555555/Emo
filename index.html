@@ -18,31 +18,30 @@
             color: white; min-height: 100vh; overflow-x: hidden;
         }
         
-        /* Header - Ultra kompakt */
+        /* Header - Halb so hoch */
         .game-header {
             background: linear-gradient(135deg, #8b00ff, #ff1493, #32cd32);
-            padding: 2px; border-radius: 4px; position: sticky; top: 0; z-index: 200;
+            padding: 1px 3px; border-radius: 3px; position: sticky; top: 0; z-index: 200;
             box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
         .header-layout {
-            display: flex; justify-content: space-between; align-items: center; gap: 2px;
+            display: flex; justify-content: space-between; align-items: center; gap: 3px;
         }
         .header-player { flex: 1; font-size: 0.45rem; font-weight: 700; line-height: 1.1; }
         .header-player.left { text-align: left; color: #ff1493; }
         .header-player.right { text-align: right; color: #32cd32; }
         .header-center {
-            flex: 0 0 auto; display: flex; align-items: center; gap: 3px;
+            flex: 0 0 auto; display: flex; align-items: center; gap: 2px;
         }
         .header-title {
-            font-family: 'Playfair Display', serif; font-size: 0.55rem;
-            font-weight: 900; letter-spacing: 0.3px; writing-mode: vertical-rl;
-            text-orientation: upright; line-height: 0.5rem;
+            font-family: 'Playfair Display', serif; font-size: 0.5rem;
+            font-weight: 900; letter-spacing: 0.2px;
         }
         .die {
-            width: 28px; height: 28px; background: linear-gradient(145deg, #fff, #f0f0f0);
+            width: 22px; height: 22px; background: linear-gradient(145deg, #fff, #f0f0f0);
             color: var(--bg-dark); display: flex; justify-content: center; align-items: center;
-            font-size: 0.9rem; font-weight: 700; border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3); user-select: none;
+            font-size: 0.75rem; font-weight: 700; border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3); user-select: none;
         }
         .die.rolling { animation: roll 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
         @keyframes roll {
@@ -50,21 +49,18 @@
             100% { transform: rotate(360deg); }
         }
         .header-buttons {
-            display: flex; flex-direction: column; gap: 2px;
+            display: flex; gap: 2px;
         }
         .btn-header {
             background: linear-gradient(135deg, #8b00ff, #ff1493);
-            color: white; border: none; padding: 5px 10px; border-radius: 10px;
-            font-size: 0.6rem; font-weight: 600; cursor: pointer;
+            color: white; border: none; padding: 3px 6px; border-radius: 8px;
+            font-size: 0.5rem; font-weight: 600; cursor: pointer;
             box-shadow: 0 1px 3px rgba(0,0,0,0.2); touch-action: manipulation;
             white-space: nowrap;
         }
         .btn-header:active { transform: scale(0.95); }
         .btn-header.secondary { background: linear-gradient(135deg, #666, #555); }
-        .current-player {
-            font-size: 0.4rem; margin-top: 1px; padding: 1px 4px;
-            background: rgba(255,215,0,0.2); border-radius: 3px; text-align: center;
-        }
+        .current-player { display: none; }
         
         /* Container */
         .container { max-width: 100%; margin: 0 auto; padding: 8px; }
@@ -119,6 +115,34 @@
         .cell-cuckold { background: linear-gradient(135deg, var(--cuckold), #228b22); color: white; }
         .cell-keuschheit { background: linear-gradient(135deg, var(--keuschheit), #daa520); color: #333; }
         .cell-corner { background: linear-gradient(135deg, #6a0dad, #8a2be2); color: white; width: 44px; height: 44px; border-radius: 50%; font-size: 0.38rem; }
+        
+        /* Zentrum - Würfel & Buttons */
+        .cell-center {
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            width: 100px; height: 100px; border-radius: 15px;
+            border: 2px solid rgba(255,255,255,0.3);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            gap: 5px; padding: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .center-die {
+            width: 45px; height: 45px; background: linear-gradient(145deg, #fff, #f0f0f0);
+            color: var(--bg-dark); display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; font-weight: 700; border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.4); user-select: none;
+        }
+        .center-die.rolling { animation: roll 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .center-buttons {
+            display: flex; gap: 3px;
+        }
+        .center-btn {
+            background: linear-gradient(135deg, #8b00ff, #ff1493);
+            color: white; border: none; padding: 6px 10px; border-radius: 10px;
+            font-size: 0.65rem; font-weight: 600; cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3); touch-action: manipulation;
+        }
+        .center-btn:active { transform: scale(0.95); }
+        .center-btn.secondary { background: linear-gradient(135deg, #666, #555); }
         
         /* Markers & Indicators */
         .player-marker {
@@ -256,27 +280,24 @@
 </head>
 <body>
     <div class="container">
-        <!-- Kompakter Header mit allem -->
+        <!-- Header - Halb so hoch -->
         <header class="game-header">
             <div class="header-layout">
                 <div class="header-player left">
-                    👑 <span id="headerFrauMoney">€3.500</span><br>
-                    <span style="font-size: 0.4rem; opacity: 0.8;"><span id="headerFrauHotels">0</span>🏨</span>
+                    👑 <span id="headerFrauMoney">€3.500</span> | <span id="headerFrauHotels">0</span>🏨
                 </div>
                 <div class="header-center">
                     <div class="header-title">EROPOLY</div>
                     <div class="die" id="die1">?</div>
                     <div class="header-buttons">
-                        <button class="btn-header" id="rollBtn">🎲 Würfeln</button>
-                        <button class="btn-header secondary" id="endTurnBtn">⏭️ Zug</button>
+                        <button class="btn-header" id="rollBtn">🎲</button>
+                        <button class="btn-header secondary" id="endTurnBtn">⏭️</button>
                     </div>
                 </div>
                 <div class="header-player right">
-                    🔒 <span id="headerMannMoney">€3.500</span><br>
-                    <span style="font-size: 0.4rem; opacity: 0.8;"><span id="headerMannHotels">0</span>🏨</span>
+                    🔒 <span id="headerMannMoney">€3.500</span> | <span id="headerMannHotels">0</span>🏨
                 </div>
             </div>
-            <div class="current-player" id="headerCurrentPlayer">Aktuell: 👑 Ehefrau</div>
         </header>
         
         <div class="game-layout">
@@ -484,44 +505,47 @@
             }
         };
 
-        // =================== BOARD POSITIONS (Enges Quadrat OHNE Lücken) ===================
+        // =================== BOARD POSITIONS (Rechteck, gleichmäßig verteilt) ===================
         const boardPositions = [
-            // Unten (START) - 7 Felder
-            { top: '90%', left: '90%', theme: 'corner', name: 'LOS' },
-            { top: '90%', left: '75%', theme: 'romantik', streetId: 1 },
-            { top: '90%', left: '60%', theme: 'corner', name: '🎁 BONUS' },
-            { top: '90%', left: '45%', theme: 'romantik', streetId: 2 },
-            { top: '90%', left: '30%', theme: 'corner', name: '💡 EVENT' },
-            { top: '90%', left: '15%', theme: 'romantik', streetId: 3 },
-            { top: '90%', left: '5%', theme: 'corner', name: '⚡ AKTION' },
+            // Unten (START) - 8 Felder
+            { top: '88%', left: '88%', theme: 'corner', name: 'LOS' },
+            { top: '88%', left: '76%', theme: 'romantik', streetId: 1 },
+            { top: '88%', left: '64%', theme: 'corner', name: '🎁' },
+            { top: '88%', left: '52%', theme: 'romantik', streetId: 2 },
+            { top: '88%', left: '40%', theme: 'corner', name: '💡' },
+            { top: '88%', left: '28%', theme: 'romantik', streetId: 3 },
+            { top: '88%', left: '16%', theme: 'kuscheln', streetId: 4 },
+            { top: '88%', left: '8%', theme: 'corner', name: '⚡' },
             
-            // Links - 7 Felder
-            { top: '75%', left: '5%', theme: 'kuscheln', streetId: 4 },
-            { top: '60%', left: '5%', theme: 'corner', name: '🎲 GLÜCK' },
-            { top: '45%', left: '5%', theme: 'kuscheln', streetId: 5 },
-            { top: '30%', left: '5%', theme: 'kuscheln', streetId: 6 },
-            { top: '15%', left: '5%', theme: 'corner', name: '💡 EVENT' },
-            { top: '5%', left: '5%', theme: 'corner', name: '⏸️ PAUSE' },
+            // Links - 6 Felder
+            { top: '76%', left: '8%', theme: 'kuscheln', streetId: 5 },
+            { top: '64%', left: '8%', theme: 'corner', name: '🎲' },
+            { top: '52%', left: '8%', theme: 'kuscheln', streetId: 6 },
+            { top: '40%', left: '8%', theme: 'femdom', streetId: 7 },
+            { top: '28%', left: '8%', theme: 'corner', name: '💡' },
+            { top: '16%', left: '8%', theme: 'corner', name: '⏸️' },
             
-            // Oben - 7 Felder
-            { top: '5%', left: '15%', theme: 'femdom', streetId: 7 },
-            { top: '5%', left: '30%', theme: 'femdom', streetId: 8 },
-            { top: '5%', left: '45%', theme: 'femdom', streetId: 9 },
-            { top: '5%', left: '60%', theme: 'corner', name: '🅿️ PARKEN' },
-            { top: '5%', left: '75%', theme: 'bdsm', streetId: 10 },
-            { top: '5%', left: '90%', theme: 'bdsm', streetId: 11 },
+            // Oben - 8 Felder
+            { top: '8%', left: '16%', theme: 'femdom', streetId: 8 },
+            { top: '8%', left: '28%', theme: 'femdom', streetId: 9 },
+            { top: '8%', left: '40%', theme: 'bdsm', streetId: 10 },
+            { top: '8%', left: '52%', theme: 'corner', name: '🅿️' },
+            { top: '8%', left: '64%', theme: 'bdsm', streetId: 11 },
+            { top: '8%', left: '76%', theme: 'bdsm', streetId: 12 },
+            { top: '8%', left: '88%', theme: 'hotwife', streetId: 13 },
             
-            // Rechts - 9 Felder (Hier alle verbleibenden Straßen)
-            { top: '15%', left: '90%', theme: 'bdsm', streetId: 12 },
-            { top: '22%', left: '90%', theme: 'hotwife', streetId: 13 },
-            { top: '30%', left: '90%', theme: 'hotwife', streetId: 14 },
-            { top: '38%', left: '90%', theme: 'hotwife', streetId: 15 },
-            { top: '45%', left: '90%', theme: 'cuckold', streetId: 16 },
-            { top: '52%', left: '90%', theme: 'cuckold', streetId: 17 },
-            { top: '60%', left: '90%', theme: 'cuckold', streetId: 18 },
-            { top: '68%', left: '90%', theme: 'keuschheit', streetId: 19 },
-            { top: '75%', left: '90%', theme: 'keuschheit', streetId: 20 },
-            { top: '82%', left: '90%', theme: 'keuschheit', streetId: 21 }
+            // Rechts - 8 Felder (gleichmäßig verteilt)
+            { top: '16%', left: '88%', theme: 'hotwife', streetId: 14 },
+            { top: '24%', left: '88%', theme: 'hotwife', streetId: 15 },
+            { top: '34%', left: '88%', theme: 'cuckold', streetId: 16 },
+            { top: '44%', left: '88%', theme: 'cuckold', streetId: 17 },
+            { top: '54%', left: '88%', theme: 'cuckold', streetId: 18 },
+            { top: '64%', left: '88%', theme: 'keuschheit', streetId: 19 },
+            { top: '73%', left: '88%', theme: 'keuschheit', streetId: 20 },
+            { top: '82%', left: '88%', theme: 'keuschheit', streetId: 21 },
+            
+            // ZENTRUM für Würfel & Buttons
+            { top: '48%', left: '48%', theme: 'center', name: 'CENTER' }
         ];
 
         // =================== INIT ===================
@@ -563,6 +587,30 @@
             
             boardPositions.forEach((pos, index) => {
                 const cell = document.createElement('div');
+                
+                // ZENTRUM - Würfel & Buttons
+                if (pos.theme === 'center') {
+                    cell.className = 'cell-center';
+                    cell.style.top = pos.top;
+                    cell.style.left = pos.left;
+                    cell.style.transform = 'translate(-50%, -50%)';
+                    cell.innerHTML = `
+                        <div class="center-die" id="centerDie">?</div>
+                        <div class="center-buttons">
+                            <button class="center-btn" id="centerRollBtn">🎲</button>
+                            <button class="center-btn secondary" id="centerEndBtn">⏭️</button>
+                        </div>
+                    `;
+                    container.appendChild(cell);
+                    
+                    // Event listeners für Center-Buttons
+                    setTimeout(() => {
+                        document.getElementById('centerRollBtn').addEventListener('click', rollDice);
+                        document.getElementById('centerEndBtn').addEventListener('click', endTurn);
+                    }, 100);
+                    return;
+                }
+                
                 cell.className = `board-cell cell-${pos.theme}`;
                 cell.style.top = pos.top;
                 cell.style.left = pos.left;
@@ -697,8 +745,11 @@
         function rollDice() {
             if (!gameState.gameActive) return;
             
-            const die = document.getElementById('die1');
-            die.classList.add('rolling');
+            const headerDie = document.getElementById('die1');
+            const centerDie = document.getElementById('centerDie');
+            
+            if (headerDie) headerDie.classList.add('rolling');
+            if (centerDie) centerDie.classList.add('rolling');
             
             setTimeout(() => {
                 let roll = Math.floor(Math.random() * 6) + 1;
@@ -707,12 +758,20 @@
                     roll = Math.min(6, roll + 1);
                 }
                 
-                die.textContent = roll;
-                die.classList.remove('rolling');
+                if (headerDie) {
+                    headerDie.textContent = roll;
+                    headerDie.classList.remove('rolling');
+                }
+                if (centerDie) {
+                    centerDie.textContent = roll;
+                    centerDie.classList.remove('rolling');
+                }
                 
                 setTimeout(() => {
                     movePlayer(roll);
                     document.getElementById('rollBtn').disabled = true;
+                    const centerRoll = document.getElementById('centerRollBtn');
+                    if (centerRoll) centerRoll.disabled = true;
                 }, 300);
             }, 500);
         }
@@ -940,6 +999,8 @@
         function endTurn() {
             gameState.currentPlayer = gameState.currentPlayer === 'frau' ? 'mann' : 'frau';
             document.getElementById('rollBtn').disabled = false;
+            const centerRoll = document.getElementById('centerRollBtn');
+            if (centerRoll) centerRoll.disabled = false;
             updatePlayerInfo();
         }
 

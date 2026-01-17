@@ -27,7 +27,10 @@
         .header-layout {
             display: flex; justify-content: space-between; align-items: center; gap: 3px;
         }
-        .header-player { flex: 1; font-size: 0.45rem; font-weight: 700; line-height: 1.1; }
+        .header-player { 
+            flex: 1; font-size: 0.58rem; font-weight: 700; line-height: 1.1;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8), 0 0 5px rgba(0,0,0,0.5);
+        }
         .header-player.left { text-align: left; color: #ff1493; }
         .header-player.right { text-align: right; color: #32cd32; }
         .header-center {
@@ -118,6 +121,7 @@
         
         /* Zentrum - Würfel & Buttons */
         .cell-center {
+            position: absolute;
             background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
             width: 100px; height: 100px; border-radius: 15px;
             border: 2px solid rgba(255,255,255,0.3);
@@ -284,7 +288,9 @@
         <header class="game-header">
             <div class="header-layout">
                 <div class="header-player left">
-                    👑 <span id="headerFrauMoney">€3.500</span> | <span id="headerFrauHotels">0</span>🏨
+                    <span style="background: rgba(0,0,0,0.4); padding: 2px 5px; border-radius: 5px; border: 1px solid rgba(255,20,147,0.5);">
+                        👑 <span id="headerFrauMoney">€3.500</span> | <span id="headerFrauHotels">0</span>🏨
+                    </span>
                 </div>
                 <div class="header-center">
                     <div class="header-title">EROPOLY</div>
@@ -295,7 +301,9 @@
                     </div>
                 </div>
                 <div class="header-player right">
-                    🔒 <span id="headerMannMoney">€3.500</span> | <span id="headerMannHotels">0</span>🏨
+                    <span style="background: rgba(0,0,0,0.4); padding: 2px 5px; border-radius: 5px; border: 1px solid rgba(50,205,50,0.5);">
+                        🔒 <span id="headerMannMoney">€3.500</span> | <span id="headerMannHotels">0</span>🏨
+                    </span>
                 </div>
             </div>
         </header>
@@ -306,18 +314,6 @@
                 <div class="board-section">
                     <div class="board-container">
                         <div class="board-inner" id="boardContainer"></div>
-                    </div>
-                    
-                    <div class="instructions">
-                        <div class="instructions-title">📋 Spielregeln</div>
-                        <ul class="instructions-list">
-                            <li>Würfeln und bewegen</li>
-                            <li>Straßen kaufen</li>
-                            <li>Hotel nur bei Monopol (alle 3 Straßen)</li>
-                            <li>Fremde Hotels: Miete ODER Aufgabe</li>
-                            <li>LOS = €200</li>
-                            <li>Ende: Vermögen ÷ 1000 = Realer €</li>
-                        </ul>
                     </div>
                 </div>
             </main>
@@ -350,6 +346,21 @@
                 <section class="section">
                     <h2 class="section-title">🏁 Spielende</h2>
                     <button class="btn btn-success" id="endGameBtn">💰 Endergebnis berechnen</button>
+                </section>
+                
+                <!-- Spielregeln ganz unten -->
+                <section class="section">
+                    <div class="instructions">
+                        <div class="instructions-title">📋 Spielregeln</div>
+                        <ul class="instructions-list">
+                            <li>Würfeln und bewegen</li>
+                            <li>Straßen kaufen</li>
+                            <li>Hotel nur bei Monopol (alle 3 Straßen)</li>
+                            <li>Fremde Hotels: Miete ODER Aufgabe</li>
+                            <li>LOS = €200</li>
+                            <li>Ende: Vermögen ÷ 1000 = Realer €</li>
+                        </ul>
+                    </div>
                 </section>
             </aside>
         </div>
@@ -505,7 +516,7 @@
             }
         };
 
-        // =================== BOARD POSITIONS (Rechteck, gleichmäßig verteilt) ===================
+        // =================== BOARD POSITIONS (Rechteck, GLEICHE Verteilung) ===================
         const boardPositions = [
             // Unten (START) - 8 Felder
             { top: '88%', left: '88%', theme: 'corner', name: 'LOS' },
@@ -517,35 +528,35 @@
             { top: '88%', left: '16%', theme: 'kuscheln', streetId: 4 },
             { top: '88%', left: '8%', theme: 'corner', name: '⚡' },
             
-            // Links - 6 Felder
+            // Links - 7 Felder (gleich wie rechts!)
             { top: '76%', left: '8%', theme: 'kuscheln', streetId: 5 },
             { top: '64%', left: '8%', theme: 'corner', name: '🎲' },
             { top: '52%', left: '8%', theme: 'kuscheln', streetId: 6 },
             { top: '40%', left: '8%', theme: 'femdom', streetId: 7 },
-            { top: '28%', left: '8%', theme: 'corner', name: '💡' },
-            { top: '16%', left: '8%', theme: 'corner', name: '⏸️' },
+            { top: '28%', left: '8%', theme: 'femdom', streetId: 8 },
+            { top: '16%', left: '8%', theme: 'corner', name: '💡' },
+            { top: '8%', left: '8%', theme: 'corner', name: '⏸️' },
             
             // Oben - 8 Felder
-            { top: '8%', left: '16%', theme: 'femdom', streetId: 8 },
-            { top: '8%', left: '28%', theme: 'femdom', streetId: 9 },
-            { top: '8%', left: '40%', theme: 'bdsm', streetId: 10 },
+            { top: '8%', left: '16%', theme: 'femdom', streetId: 9 },
+            { top: '8%', left: '28%', theme: 'bdsm', streetId: 10 },
+            { top: '8%', left: '40%', theme: 'bdsm', streetId: 11 },
             { top: '8%', left: '52%', theme: 'corner', name: '🅿️' },
-            { top: '8%', left: '64%', theme: 'bdsm', streetId: 11 },
-            { top: '8%', left: '76%', theme: 'bdsm', streetId: 12 },
-            { top: '8%', left: '88%', theme: 'hotwife', streetId: 13 },
+            { top: '8%', left: '64%', theme: 'bdsm', streetId: 12 },
+            { top: '8%', left: '76%', theme: 'hotwife', streetId: 13 },
+            { top: '8%', left: '88%', theme: 'hotwife', streetId: 14 },
             
-            // Rechts - 8 Felder (gleichmäßig verteilt)
-            { top: '16%', left: '88%', theme: 'hotwife', streetId: 14 },
-            { top: '24%', left: '88%', theme: 'hotwife', streetId: 15 },
-            { top: '34%', left: '88%', theme: 'cuckold', streetId: 16 },
-            { top: '44%', left: '88%', theme: 'cuckold', streetId: 17 },
-            { top: '54%', left: '88%', theme: 'cuckold', streetId: 18 },
+            // Rechts - 7 Felder (gleich wie links!)
+            { top: '16%', left: '88%', theme: 'hotwife', streetId: 15 },
+            { top: '28%', left: '88%', theme: 'cuckold', streetId: 16 },
+            { top: '40%', left: '88%', theme: 'cuckold', streetId: 17 },
+            { top: '52%', left: '88%', theme: 'cuckold', streetId: 18 },
             { top: '64%', left: '88%', theme: 'keuschheit', streetId: 19 },
-            { top: '73%', left: '88%', theme: 'keuschheit', streetId: 20 },
+            { top: '76%', left: '88%', theme: 'keuschheit', streetId: 20 },
             { top: '82%', left: '88%', theme: 'keuschheit', streetId: 21 },
             
-            // ZENTRUM für Würfel & Buttons
-            { top: '48%', left: '48%', theme: 'center', name: 'CENTER' }
+            // ZENTRUM für Würfel & Buttons (besser zentriert)
+            { top: '48%', left: '50%', theme: 'center', name: 'CENTER' }
         ];
 
         // =================== INIT ===================

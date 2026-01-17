@@ -9,1019 +9,800 @@
         :root {
             --romantik: #ff1493; --kuscheln: #00bfff; --femdom: #8b00ff;
             --bdsm: #ff4500; --hotwife: #ff69b4; --cuckold: #32cd32; --keuschheit: #ffd700;
-            --bg-dark: #1a0f2e; --bg-card: #3d2857; --gold: #ffd700;
+            --bg-dark: #1a0f2e; --bg-card: #3d2857;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark), #1f1038, var(--bg-dark));
+            background: linear-gradient(135deg, var(--bg-dark), #1f1038);
             color: white; min-height: 100vh; overflow-x: hidden;
         }
         
-        /* Header - Halb so hoch */
-        .game-header {
+        /* Header - Ultra kompakt */
+        .header {
             background: linear-gradient(135deg, #8b00ff, #ff1493, #32cd32);
-            padding: 1px 3px; border-radius: 3px; position: sticky; top: 0; z-index: 200;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            padding: 2px 4px; position: sticky; top: 0; z-index: 200;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .header-layout {
-            display: flex; justify-content: space-between; align-items: center; gap: 3px;
+        .player-info {
+            font-size: 0.58rem; font-weight: 700;
+            background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
-        .header-player { 
-            flex: 1; font-size: 0.58rem; font-weight: 700; line-height: 1.1;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8), 0 0 5px rgba(0,0,0,0.5);
-        }
-        .header-player.left { text-align: left; color: #ff1493; }
-        .header-player.right { text-align: right; color: #32cd32; }
+        .player-info.frau { color: #ff1493; border: 1px solid rgba(255,20,147,0.5); }
+        .player-info.mann { color: #32cd32; border: 1px solid rgba(50,205,50,0.5); }
         .header-center {
-            flex: 0 0 auto; display: flex; align-items: center; gap: 2px;
+            display: flex; align-items: center; gap: 3px;
         }
-        .header-title {
-            font-family: 'Playfair Display', serif; font-size: 0.5rem;
-            font-weight: 900; letter-spacing: 0.2px;
-        }
+        .title { font-family: 'Playfair Display', serif; font-size: 0.6rem; font-weight: 900; }
         .die {
-            width: 22px; height: 22px; background: linear-gradient(145deg, #fff, #f0f0f0);
+            width: 24px; height: 24px; background: linear-gradient(145deg, #fff, #f0f0f0);
             color: var(--bg-dark); display: flex; justify-content: center; align-items: center;
-            font-size: 0.75rem; font-weight: 700; border-radius: 3px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3); user-select: none;
+            font-size: 0.8rem; font-weight: 700; border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-        .die.rolling { animation: roll 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-        @keyframes roll {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .header-buttons {
-            display: flex; gap: 2px;
-        }
-        .btn-header {
+        .die.rolling { animation: roll 0.5s; }
+        @keyframes roll { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .header-btn {
             background: linear-gradient(135deg, #8b00ff, #ff1493);
-            color: white; border: none; padding: 3px 6px; border-radius: 8px;
+            color: white; border: none; padding: 3px 8px; border-radius: 8px;
             font-size: 0.5rem; font-weight: 600; cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2); touch-action: manipulation;
-            white-space: nowrap;
         }
-        .btn-header:active { transform: scale(0.95); }
-        .btn-header.secondary { background: linear-gradient(135deg, #666, #555); }
-        .current-player { display: none; }
+        .header-btn:active { transform: scale(0.95); }
+        .header-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .header-btn.secondary { background: linear-gradient(135deg, #666, #555); }
         
-        /* Container */
-        .container { max-width: 100%; margin: 0 auto; padding: 8px; }
-        
-        /* Game Layout */
-        .game-layout {
-            display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 8px;
-        }
+        .container { max-width: 100%; padding: 8px; }
+        .layout { display: grid; grid-template-columns: 1fr; gap: 10px; }
         
         /* Board */
-        .board-section {
+        .board {
             background: linear-gradient(135deg, #fff5f8, #f0e6ff);
-            border-radius: 10px; padding: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-        }
-        .board-container {
-            position: relative; width: 100%; padding-bottom: 100%;
-            background: linear-gradient(135deg, #fff5f8, #f0e6ff);
-            border-radius: 8px; box-shadow: inset 0 0 20px rgba(138,43,226,0.15);
+            border-radius: 10px; padding: 10px;
+            position: relative; width: 100%; padding-bottom: 120%; /* 20% länger */
         }
         .board-inner { position: absolute; inset: 0; }
-        .board-cell {
+        
+        .cell {
             position: absolute; width: 44px; height: 44px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 2px; border-radius: 4px; font-weight: 600;
-            font-size: 0.36rem; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.5); cursor: pointer;
-            transition: all 0.2s;
+            text-align: center; padding: 2px; border-radius: 4px;
+            font-size: 0.36rem; font-weight: 600; cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.5);
+            transform: translate(-50%, -50%);
         }
-        .board-cell:active { transform: scale(0.95); }
+        .cell-corner { 
+            background: linear-gradient(135deg, #6a0dad, #8a2be2); 
+            color: white; border-radius: 50%; font-size: 0.38rem; 
+        }
+        .cell-street { position: relative; }
         
-        /* STARKE Besitzer-Markierung - Komplette Zelle */
-        .board-cell.owned-frau {
+        /* Farben */
+        .romantik { background: linear-gradient(135deg, var(--romantik), #c71585); color: white; }
+        .kuscheln { background: linear-gradient(135deg, var(--kuscheln), #0099cc); color: white; }
+        .femdom { background: linear-gradient(135deg, var(--femdom), #6600cc); color: white; }
+        .bdsm { background: linear-gradient(135deg, var(--bdsm), #cc3700); color: white; }
+        .hotwife { background: linear-gradient(135deg, var(--hotwife), var(--romantik)); color: white; }
+        .cuckold { background: linear-gradient(135deg, var(--cuckold), #228b22); color: white; }
+        .keuschheit { background: linear-gradient(135deg, var(--keuschheit), #daa520); color: #333; }
+        
+        /* Besitzer-Markierung */
+        .owned-frau {
             border: 4px solid #ff1493 !important;
-            box-shadow: 0 0 12px rgba(255, 20, 147, 0.6), inset 0 0 15px rgba(255, 20, 147, 0.2) !important;
-            background-blend-mode: overlay;
+            box-shadow: 0 0 12px rgba(255,20,147,0.6), inset 0 0 15px rgba(255,20,147,0.2) !important;
         }
-        .board-cell.owned-mann {
+        .owned-mann {
             border: 4px solid #32cd32 !important;
-            box-shadow: 0 0 12px rgba(50, 205, 50, 0.6), inset 0 0 15px rgba(50, 205, 50, 0.2) !important;
-            background-blend-mode: overlay;
+            box-shadow: 0 0 12px rgba(50,205,50,0.6), inset 0 0 15px rgba(50,205,50,0.2) !important;
         }
         
         .cell-name { font-weight: 700; line-height: 0.85; font-size: 0.34rem; }
         .cell-price { font-size: 0.3rem; opacity: 0.9; margin-top: 1px; }
         
-        /* Cell Colors */
-        .cell-romantik { background: linear-gradient(135deg, var(--romantik), #c71585); color: white; }
-        .cell-kuscheln { background: linear-gradient(135deg, var(--kuscheln), #0099cc); color: white; }
-        .cell-femdom { background: linear-gradient(135deg, var(--femdom), #6600cc); color: white; }
-        .cell-bdsm { background: linear-gradient(135deg, var(--bdsm), #cc3700); color: white; }
-        .cell-hotwife { background: linear-gradient(135deg, var(--hotwife), var(--romantik)); color: white; }
-        .cell-cuckold { background: linear-gradient(135deg, var(--cuckold), #228b22); color: white; }
-        .cell-keuschheit { background: linear-gradient(135deg, var(--keuschheit), #daa520); color: #333; }
-        .cell-corner { background: linear-gradient(135deg, #6a0dad, #8a2be2); color: white; width: 44px; height: 44px; border-radius: 50%; font-size: 0.38rem; }
+        /* Marker */
+        .marker {
+            position: absolute; width: 22px; height: 22px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; font-size: 0.85rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.6); z-index: 20; border: 3px solid white;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .marker-frau { background: linear-gradient(135deg, #ff1493, #ff69b4); top: -6px; left: 50%; transform: translateX(-50%); }
+        .marker-mann { background: linear-gradient(135deg, #32cd32, #228b22); bottom: -6px; left: 50%; transform: translateX(-50%); }
         
-        /* Zentrum - Würfel & Buttons */
-        .cell-center {
-            position: absolute;
-            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+        .hotel {
+            position: absolute; top: 1px; right: 1px; width: 12px; height: 12px;
+            background: linear-gradient(135deg, var(--keuschheit), #ffed4e);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        .owner-badge {
+            position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.7); color: white; padding: 1px 3px;
+            border-radius: 4px; font-size: 0.4rem; font-weight: 700;
+        }
+        
+        /* Zentrum */
+        .center {
+            position: absolute; top: 48%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
             width: 100px; height: 100px; border-radius: 15px;
             border: 2px solid rgba(255,255,255,0.3);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            gap: 5px; padding: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            gap: 5px; padding: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
         .center-die {
             width: 45px; height: 45px; background: linear-gradient(145deg, #fff, #f0f0f0);
             color: var(--bg-dark); display: flex; justify-content: center; align-items: center;
             font-size: 1.5rem; font-weight: 700; border-radius: 8px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.4); user-select: none;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
         }
-        .center-die.rolling { animation: roll 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-        .center-buttons {
-            display: flex; gap: 3px;
-        }
+        .center-die.rolling { animation: roll 0.5s; }
+        .center-btns { display: flex; gap: 3px; }
         .center-btn {
             background: linear-gradient(135deg, #8b00ff, #ff1493);
             color: white; border: none; padding: 6px 10px; border-radius: 10px;
             font-size: 0.65rem; font-weight: 600; cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3); touch-action: manipulation;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
         .center-btn:active { transform: scale(0.95); }
+        .center-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .center-btn.secondary { background: linear-gradient(135deg, #666, #555); }
         
-        /* Markers & Indicators */
-        .player-marker {
-            position: absolute; width: 24px; height: 24px; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; font-size: 0.9rem;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.6); z-index: 20; border: 3px solid white;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        .marker-frau { background: linear-gradient(135deg, #ff1493, #ff69b4); top: -4px; left: 50%; transform: translateX(-50%); }
-        .marker-mann { background: linear-gradient(135deg, #32cd32, #228b22); bottom: -4px; left: 50%; transform: translateX(-50%); }
-        .hotel-indicator {
-            position: absolute; top: 1px; right: 1px; width: 12px; height: 12px;
-            background: linear-gradient(135deg, var(--gold), #ffed4e); border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; font-size: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-        }
-        .cell-owner-badge {
-            position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);
-            background: rgba(0,0,0,0.7); color: white; padding: 1px 3px; border-radius: 4px;
-            font-size: 0.4rem; font-weight: 700;
-        }
-        
-        /* Sections */
+        /* Sidebar */
         .section {
             background: var(--bg-card); border-radius: 10px; padding: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 10px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px;
         }
-        .section-title {
-            font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; color: var(--gold);
-        }
+        .section-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; color: var(--keuschheit); }
         
-        /* Buttons */
         .btn {
-            background: linear-gradient(135deg, #8b00ff, #ff1493); color: white; border: none;
-            padding: 12px 18px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;
-            cursor: pointer; width: 100%; margin-bottom: 8px; text-transform: uppercase;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2); touch-action: manipulation;
+            background: linear-gradient(135deg, #8b00ff, #ff1493);
+            color: white; border: none; padding: 10px 16px; border-radius: 20px;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer; width: 100%;
+            margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         .btn:active { transform: scale(0.97); }
         .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-secondary { background: linear-gradient(135deg, #6c757d, #5a6268); }
-        .btn-success { background: linear-gradient(135deg, #4caf50, #45a049); }
-        .btn-danger { background: linear-gradient(135deg, #f44336, #da190b); }
         .btn-warning { background: linear-gradient(135deg, #ff9800, #f57c00); }
+        .btn-danger { background: linear-gradient(135deg, #f44336, #da190b); }
+        .btn-success { background: linear-gradient(135deg, #4caf50, #45a049); }
+        .btn-secondary { background: linear-gradient(135deg, #6c757d, #5a6268); }
         
         /* Theme Blocks */
-        .theme-block {
-            background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px;
-            margin-bottom: 8px; border-left: 4px solid;
+        .theme { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 8px; margin-bottom: 6px; border-left: 4px solid; }
+        .theme-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .theme-name { font-weight: 700; font-size: 0.75rem; }
+        .monopoly-badge { 
+            background: rgba(255,215,0,0.2); color: var(--keuschheit);
+            padding: 1px 4px; border-radius: 6px; font-size: 0.6rem; margin-left: 3px;
         }
-        .theme-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;
-        }
-        .theme-name { font-weight: 700; font-size: 0.8rem; }
-        .theme-stats { display: flex; gap: 6px; font-size: 0.7rem; }
-        .monopoly-badge {
-            background: rgba(255,215,0,0.2); color: var(--gold); padding: 2px 6px;
-            border-radius: 8px; font-size: 0.65rem; font-weight: 700; margin-left: 4px;
-        }
-        .streets-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 6px;
-        }
-        .street-item {
-            background: rgba(0,0,0,0.2); padding: 5px; border-radius: 5px; font-size: 0.7rem;
-            display: flex; justify-content: space-between; align-items: center;
-        }
+        .streets { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 4px; }
+        .street { background: rgba(0,0,0,0.2); padding: 4px; border-radius: 4px; font-size: 0.65rem; display: flex; justify-content: space-between; }
         
-        /* Task Container - Editierbar */
-        .task-container {
-            background: rgba(255,255,255,0.05); border-radius: 8px; padding: 10px;
-            margin-bottom: 8px; border-left: 3px solid var(--gold);
-        }
-        .task-category {
-            font-weight: 700; font-size: 0.85rem; margin-bottom: 6px; color: var(--gold);
-        }
-        .task-list {
-            list-style: none; padding: 0; font-size: 0.75rem;
-        }
-        .task-list li {
-            padding: 4px 0 4px 12px; position: relative; line-height: 1.3;
-        }
-        .task-list li::before {
-            content: '▸'; position: absolute; left: 0; color: #ff1493; font-weight: 700;
-        }
+        /* Tasks */
+        .task-cat { background: rgba(255,255,255,0.05); border-radius: 6px; padding: 8px; margin-bottom: 6px; border-left: 3px solid var(--keuschheit); }
+        .task-title { font-weight: 700; font-size: 0.8rem; margin-bottom: 4px; color: var(--keuschheit); }
+        .task-list { list-style: none; padding: 0; font-size: 0.7rem; }
+        .task-list li { padding: 3px 0 3px 10px; position: relative; line-height: 1.2; }
+        .task-list li::before { content: '▸'; position: absolute; left: 0; color: #ff1493; font-size: 0.6rem; }
         
         /* Modal */
         .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
-            display: flex; justify-content: center; align-items: center; z-index: 1000;
-            padding: 15px; animation: fadeIn 0.3s;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
+            display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 15px;
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .modal-content {
             background: linear-gradient(135deg, var(--bg-card), var(--bg-dark));
             border-radius: 12px; padding: 20px; max-width: 500px; width: 100%;
             box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 2px solid rgba(255,255,255,0.2);
-            max-height: 85vh; overflow-y: auto; animation: slideUp 0.4s;
+            max-height: 85vh; overflow-y: auto;
         }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .modal-title {
-            font-size: 1.1rem; font-weight: 700; color: var(--gold);
-            margin-bottom: 12px; text-align: center;
-        }
-        .modal-text {
-            font-size: 1rem; line-height: 1.5; margin-bottom: 15px; text-align: center;
-            padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;
-            border: 1px dashed rgba(255,255,255,0.2);
-        }
-        .modal-buttons { display: flex; flex-direction: column; gap: 10px; }
+        .modal-title { font-size: 1.1rem; font-weight: 700; color: var(--keuschheit); margin-bottom: 12px; text-align: center; }
+        .modal-text { font-size: 1rem; line-height: 1.5; margin-bottom: 15px; text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px; }
+        .modal-btns { display: flex; flex-direction: column; gap: 10px; }
         
         .hidden { display: none !important; }
         
-        /* Instructions - Klein */
-        .instructions {
-            background: linear-gradient(135deg, rgba(138,43,226,0.1), rgba(255,105,180,0.1));
-            border-radius: 6px; padding: 6px; margin-top: 6px; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .instructions-title { font-size: 0.7rem; font-weight: 700; margin-bottom: 4px; color: var(--gold); }
-        .instructions-list { list-style: none; padding: 0; font-size: 0.6rem; }
-        .instructions-list li { padding: 2px 0 2px 10px; position: relative; line-height: 1.2; }
-        .instructions-list li::before { content: '▸'; position: absolute; left: 0; color: #ff1493; font-size: 0.5rem; }
+        /* Instructions */
+        .instructions { font-size: 0.65rem; }
+        .instructions-title { font-weight: 700; margin-bottom: 6px; color: var(--keuschheit); }
+        .instructions ul { list-style: none; padding: 0; }
+        .instructions li { padding: 2px 0 2px 10px; position: relative; line-height: 1.2; }
+        .instructions li::before { content: '▸'; position: absolute; left: 0; color: #ff1493; font-size: 0.5rem; }
         
-        /* Desktop */
         @media (min-width: 768px) {
-            .container { max-width: 1400px; padding: 15px; }
-            .game-layout { grid-template-columns: 2fr 1fr; }
-            .board-cell { width: 60px; height: 60px; font-size: 0.5rem; }
-            .cell-corner { width: 62px; height: 62px; }
-            .die { width: 55px; height: 55px; font-size: 1.8rem; }
+            .layout { grid-template-columns: 2fr 1fr; }
+            .cell { width: 55px; height: 55px; font-size: 0.45rem; }
+            .center { width: 120px; height: 120px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header - Halb so hoch -->
-        <header class="game-header">
-            <div class="header-layout">
-                <div class="header-player left">
-                    <span style="background: rgba(0,0,0,0.4); padding: 2px 5px; border-radius: 5px; border: 1px solid rgba(255,20,147,0.5);">
-                        👑 <span id="headerFrauMoney">€3.500</span> | <span id="headerFrauHotels">0</span>🏨
-                    </span>
-                </div>
-                <div class="header-center">
-                    <div class="header-title">EROPOLY</div>
-                    <div class="die" id="die1">?</div>
-                    <div class="header-buttons">
-                        <button class="btn-header" id="rollBtn">🎲</button>
-                        <button class="btn-header secondary" id="endTurnBtn">⏭️</button>
-                    </div>
-                </div>
-                <div class="header-player right">
-                    <span style="background: rgba(0,0,0,0.4); padding: 2px 5px; border-radius: 5px; border: 1px solid rgba(50,205,50,0.5);">
-                        🔒 <span id="headerMannMoney">€3.500</span> | <span id="headerMannHotels">0</span>🏨
-                    </span>
-                </div>
+        <!-- Header -->
+        <div class="header">
+            <div class="player-info frau">
+                <span>👑 €<span id="frauMoney">3500</span> | <span id="frauHotels">0</span>🏨</span>
             </div>
-        </header>
+            <div class="header-center">
+                <div class="title">EROPOLY</div>
+                <div class="die" id="headerDie">?</div>
+                <button class="header-btn" id="headerRoll" onclick="rollDice()">🎲</button>
+                <button class="header-btn secondary" id="headerEnd" onclick="endTurn()">⏭️</button>
+            </div>
+            <div class="player-info mann">
+                <span>🔒 €<span id="mannMoney">3500</span> | <span id="mannHotels">0</span>🏨</span>
+            </div>
+        </div>
         
-        <div class="game-layout">
-            <!-- Spielfeld -->
+        <div class="layout">
+            <!-- Board -->
             <main>
-                <div class="board-section">
-                    <div class="board-container">
-                        <div class="board-inner" id="boardContainer"></div>
-                    </div>
+                <div class="board">
+                    <div class="board-inner" id="board"></div>
                 </div>
             </main>
             
             <!-- Sidebar -->
             <aside>
-                <!-- Straßen-Übersicht -->
-                <section class="section">
-                    <h2 class="section-title">🏘️ Straßen & Monopole</h2>
-                    <div id="themeBlocksContainer"></div>
-                </section>
+                <!-- Aktionen direkt oben -->
+                <div class="section">
+                    <div class="section-title">⚡ Aktionen</div>
+                    <button class="btn btn-warning" onclick="openTrade()">💱 Handel</button>
+                    <button class="btn btn-danger" onclick="openTheft()">💰 Diebstahl (€200)</button>
+                    <button class="btn" onclick="openForceTask()">🎯 Aufgabe (€150)</button>
+                </div>
                 
-                <!-- Aktionen -->
-                <section class="section">
-                    <h2 class="section-title">⚡ Aktionen</h2>
-                    <button class="btn btn-warning" id="tradeBtn">💱 Handel (Kostenlos)</button>
-                    <button class="btn btn-danger" id="theftBtn">💰 Diebstahl (€200)</button>
-                    <button class="btn" id="forceTaskBtn">🎯 Aufgabe erzwingen (€150)</button>
-                </section>
+                <!-- Straßen -->
+                <div class="section">
+                    <div class="section-title">🏘️ Straßen & Monopole</div>
+                    <div id="themes"></div>
+                </div>
                 
-                <!-- Aufgaben-Container (Editierbar) -->
-                <section class="section">
-                    <h2 class="section-title">📝 Aufgaben-Übersicht</h2>
-                    <div id="tasksContainer">
-                        <!-- Wird dynamisch gefüllt -->
-                    </div>
-                </section>
+                <!-- Aufgaben -->
+                <div class="section">
+                    <div class="section-title">📝 Aufgaben</div>
+                    <div id="tasks"></div>
+                </div>
                 
-                <!-- Spielende -->
-                <section class="section">
-                    <h2 class="section-title">🏁 Spielende</h2>
-                    <button class="btn btn-success" id="endGameBtn">💰 Endergebnis berechnen</button>
-                </section>
+                <!-- Ende -->
+                <div class="section">
+                    <div class="section-title">🏁 Spielende</div>
+                    <button class="btn btn-success" onclick="endGame()">💰 Endergebnis</button>
+                </div>
                 
-                <!-- Spielregeln ganz unten -->
-                <section class="section">
+                <!-- Regeln -->
+                <div class="section">
                     <div class="instructions">
                         <div class="instructions-title">📋 Spielregeln</div>
-                        <ul class="instructions-list">
+                        <ul>
                             <li>Würfeln und bewegen</li>
                             <li>Straßen kaufen</li>
-                            <li>Hotel nur bei Monopol (alle 3 Straßen)</li>
+                            <li>Hotel bei Monopol (3 Straßen)</li>
                             <li>Fremde Hotels: Miete ODER Aufgabe</li>
                             <li>LOS = €200</li>
                             <li>Ende: Vermögen ÷ 1000 = Realer €</li>
                         </ul>
                     </div>
-                </section>
+                </div>
             </aside>
         </div>
     </div>
     
-    <!-- Task Modal -->
-    <div id="taskModal" class="hidden"></div>
+    <!-- Modal -->
+    <div id="modal" class="hidden"></div>
 
     <script>
         // =================== GAME STATE ===================
-        const gameState = {
-            currentPlayer: 'frau',
-            frauMoney: 3500,
-            mannMoney: 3500,
-            frauPosition: 0,
-            mannPosition: 0,
-            gameActive: true,
-            _h: { hd: 1.25, rd: 0.80, et: 0.60, pb: 250, ld: 0.20 }
+        const game = {
+            current: 'frau',
+            frau: { money: 3500, pos: 0 },
+            mann: { money: 3500, pos: 0 },
+            rolled: false,
+            active: true
         };
 
-        // =================== AUFGABEN (Editierbar als Container) ===================
-        const taskCategories = {
+        // =================== DATA ===================
+        const streets = {
+            1: { id: 1, name: 'Rosen-Allee', theme: 'romantik', price: 200, hotel: 100, owner: null, hasHotel: false },
+            2: { id: 2, name: 'Kerzen-Gasse', theme: 'romantik', price: 220, hotel: 110, owner: null, hasHotel: false },
+            3: { id: 3, name: 'Kuss-Boulevard', theme: 'romantik', price: 240, hotel: 120, owner: null, hasHotel: false },
+            4: { id: 4, name: 'Kuschel-Straße', theme: 'kuscheln', price: 180, hotel: 90, owner: null, hasHotel: false },
+            5: { id: 5, name: 'Streichel-Gasse', theme: 'kuscheln', price: 200, hotel: 100, owner: null, hasHotel: false },
+            6: { id: 6, name: 'Umarmungs-Allee', theme: 'kuscheln', price: 210, hotel: 105, owner: null, hasHotel: false },
+            7: { id: 7, name: 'Kommando-Allee', theme: 'femdom', price: 300, hotel: 150, owner: null, hasHotel: false },
+            8: { id: 8, name: 'Gehorsam-Gasse', theme: 'femdom', price: 320, hotel: 160, owner: null, hasHotel: false },
+            9: { id: 9, name: 'Kontroll-Straße', theme: 'femdom', price: 350, hotel: 175, owner: null, hasHotel: false },
+            10: { id: 10, name: 'Fessel-Gasse', theme: 'bdsm', price: 280, hotel: 140, owner: null, hasHotel: false },
+            11: { id: 11, name: 'Schmerz-Allee', theme: 'bdsm', price: 310, hotel: 155, owner: null, hasHotel: false },
+            12: { id: 12, name: 'Sinnes-Straße', theme: 'bdsm', price: 330, hotel: 165, owner: null, hasHotel: false },
+            13: { id: 13, name: 'Flirt-Boulevard', theme: 'hotwife', price: 260, hotel: 130, owner: null, hasHotel: false },
+            14: { id: 14, name: 'Verführungs-Allee', theme: 'hotwife', price: 290, hotel: 145, owner: null, hasHotel: false },
+            15: { id: 15, name: 'Attraktivitäts-Straße', theme: 'hotwife', price: 310, hotel: 155, owner: null, hasHotel: false },
+            16: { id: 16, name: 'Beobachtungs-Gasse', theme: 'cuckold', price: 270, hotel: 135, owner: null, hasHotel: false },
+            17: { id: 17, name: 'Dienst-Allee', theme: 'cuckold', price: 300, hotel: 150, owner: null, hasHotel: false },
+            18: { id: 18, name: 'Demütigungs-Straße', theme: 'cuckold', price: 340, hotel: 170, owner: null, hasHotel: false },
+            19: { id: 19, name: 'Enthaltsamkeits-Allee', theme: 'keuschheit', price: 350, hotel: 175, owner: null, hasHotel: false },
+            20: { id: 20, name: 'Käfig-Gasse', theme: 'keuschheit', price: 400, hotel: 200, owner: null, hasHotel: false },
+            21: { id: 21, name: 'Kontrolle-Boulevard', theme: 'keuschheit', price: 450, hotel: 225, owner: null, hasHotel: false }
+        };
+
+        const themes = {
+            romantik: { name: '💖 Romantik', color: 'romantik', streets: [1,2,3] },
+            kuscheln: { name: '🤗 Kuscheln', color: 'kuscheln', streets: [4,5,6] },
+            femdom: { name: '👠 Femdom', color: 'femdom', streets: [7,8,9] },
+            bdsm: { name: '🔐 BDSM', color: 'bdsm', streets: [10,11,12] },
+            hotwife: { name: '💃 Hotwife', color: 'hotwife', streets: [13,14,15] },
+            cuckold: { name: '👁️ Cuckold', color: 'cuckold', streets: [16,17,18] },
+            keuschheit: { name: '🔒 Keuschheit', color: 'keuschheit', streets: [19,20,21] }
+        };
+
+        const tasks = {
             romantik: {
-                name: "💖 Romantik",
-                tasks: [
-                    "Ehemann: Massiere Ehefraus Rücken 3 Min",
-                    "Ehefrau: Nur Unterwäsche, bleib so 2 Min",
-                    "Ehemann: Küsse Ehefraus Hals 1 Min",
-                    "Beide: Zungenkuss 30 Sek",
-                    "Ehemann: Streichle Ehefraus Brüste (durch Kleidung) 1 Min"
+                name: '💖 Romantik',
+                list: [
+                    'Ehemann: Massiere Ehefraus Rücken 3 Min',
+                    'Ehefrau: Nur Unterwäsche, bleib so 2 Min',
+                    'Ehemann: Küsse Ehefraus Hals 1 Min',
+                    'Beide: Zungenkuss 30 Sek'
                 ]
             },
             kuscheln: {
-                name: "🤗 Kuscheln",
-                tasks: [
-                    "Ehemann: Umarme Ehefrau von hinten 1 Min",
-                    "Wahrheit: Ehemann, wann warst du zuletzt richtig geil?",
-                    "Löffelchen 2 Min",
-                    "Wahrheit: Ehefrau, wann dachtest du an anderen Mann?"
+                name: '🤗 Kuscheln',
+                list: [
+                    'Ehemann: Umarme Ehefrau von hinten 1 Min',
+                    'Wahrheit: Wann warst du zuletzt richtig geil?',
+                    'Löffelchen 2 Min'
                 ]
             },
             femdom: {
-                name: "👠 Femdom",
-                tasks: [
-                    "Ehemann: Knie nieder, massiere Ehefraus Beine",
-                    "Ehefrau: Gib Befehl, Ehemann führt aus",
-                    "Wahrheit: Ehemann, warum verdient sie Kontrolle?",
-                    "Ehefrau: Ohrfeige seinen Po 5x"
+                name: '👠 Femdom',
+                list: [
+                    'Ehemann: Knie nieder, massiere Ehefraus Beine',
+                    'Ehefrau: Gib Befehl, Ehemann führt aus',
+                    'Ehefrau: Ohrfeige seinen Po 5x'
                 ]
             },
             bdsm: {
-                name: "🔐 BDSM",
-                tasks: [
-                    "Ehemann: 10 Klapse nackter Po",
-                    "Ehefrau: Kneife 5x in Brustwarzen",
-                    "Ehemann: Unbequeme Position 1 Min",
-                    "Augen verbinden, Ehefrau berührt 1 Min"
+                name: '🔐 BDSM',
+                list: [
+                    'Ehemann: 10 Klapse nackter Po',
+                    'Ehefrau: Kneife 5x in Brustwarzen',
+                    'Augen verbinden, Ehefrau berührt 1 Min'
                 ]
             },
             hotwife: {
-                name: "💃 Hotwife",
-                tasks: [
-                    "Wahrheit: Ehefrau, 3 Gründe für anderen Mann?",
-                    "Ehefrau: Tanze 30 Sek sexy",
-                    "Ehefrau: Zieh dich aus, präsentiere 1 Min",
-                    "Wahrheit: Ehefrau, beschreibe Traummann"
+                name: '💃 Hotwife',
+                list: [
+                    'Wahrheit: Ehefrau, 3 Gründe für anderen Mann?',
+                    'Ehefrau: Tanze 30 Sek sexy',
+                    'Ehefrau: Zieh dich aus, präsentiere 1 Min'
                 ]
             },
             cuckold: {
-                name: "👁️ Cuckold",
-                tasks: [
-                    "Wahrheit: Ehemann, warum verdient sie Besseren?",
-                    "Ehemann: Danke ihr, dass sie bleibt",
-                    "Ehemann: Putze ihre Schuhe",
-                    "Wahrheit: Ehemann, zu schnell gekommen?"
+                name: '👁️ Cuckold',
+                list: [
+                    'Wahrheit: Ehemann, warum verdient sie Besseren?',
+                    'Ehemann: Danke ihr, dass sie bleibt',
+                    'Ehemann: Putze ihre Schuhe'
                 ]
             },
             keuschheit: {
-                name: "🔒 Keuschheit",
-                tasks: [
-                    "Penis-Check: Unter 15cm? Zahle €100",
-                    "Wahrheit: Ehemann, wie oft denkst du an Sex?",
-                    "Ehefrau: Bestimme, wann er kommen darf",
-                    "Wahrheit: Ehefrau, warum ist Dildo besser?"
+                name: '🔒 Keuschheit',
+                list: [
+                    'Penis-Check: Unter 15cm? Zahle €100',
+                    'Wahrheit: Wie oft denkst du an Sex?',
+                    'Ehefrau: Bestimme, wann er kommen darf'
                 ]
             }
         };
 
-        // =================== THEMEN ===================
-        const themeBlocks = {
-            romantik: {
-                name: "💖 Romantik",
-                color: "romantik",
-                streets: [
-                    { id: 1, name: "Rosen-Allee", price: 200, hotelCost: 100, owner: null, hasHotel: false },
-                    { id: 2, name: "Kerzen-Gasse", price: 220, hotelCost: 110, owner: null, hasHotel: false },
-                    { id: 3, name: "Kuss-Boulevard", price: 240, hotelCost: 120, owner: null, hasHotel: false }
-                ]
-            },
-            kuscheln: {
-                name: "🤗 Kuscheln",
-                color: "kuscheln",
-                streets: [
-                    { id: 4, name: "Kuschel-Straße", price: 180, hotelCost: 90, owner: null, hasHotel: false },
-                    { id: 5, name: "Streichel-Gasse", price: 200, hotelCost: 100, owner: null, hasHotel: false },
-                    { id: 6, name: "Umarmungs-Allee", price: 210, hotelCost: 105, owner: null, hasHotel: false }
-                ]
-            },
-            femdom: {
-                name: "👠 Femdom",
-                color: "femdom",
-                streets: [
-                    { id: 7, name: "Kommando-Allee", price: 300, hotelCost: 150, owner: null, hasHotel: false },
-                    { id: 8, name: "Gehorsam-Gasse", price: 320, hotelCost: 160, owner: null, hasHotel: false },
-                    { id: 9, name: "Kontroll-Straße", price: 350, hotelCost: 175, owner: null, hasHotel: false }
-                ]
-            },
-            bdsm: {
-                name: "🔐 BDSM",
-                color: "bdsm",
-                streets: [
-                    { id: 10, name: "Fessel-Gasse", price: 280, hotelCost: 140, owner: null, hasHotel: false },
-                    { id: 11, name: "Schmerz-Allee", price: 310, hotelCost: 155, owner: null, hasHotel: false },
-                    { id: 12, name: "Sinnes-Straße", price: 330, hotelCost: 165, owner: null, hasHotel: false }
-                ]
-            },
-            hotwife: {
-                name: "💃 Hotwife",
-                color: "hotwife",
-                streets: [
-                    { id: 13, name: "Flirt-Boulevard", price: 260, hotelCost: 130, owner: null, hasHotel: false },
-                    { id: 14, name: "Verführungs-Allee", price: 290, hotelCost: 145, owner: null, hasHotel: false },
-                    { id: 15, name: "Attraktivitäts-Straße", price: 310, hotelCost: 155, owner: null, hasHotel: false }
-                ]
-            },
-            cuckold: {
-                name: "👁️ Cuckold",
-                color: "cuckold",
-                streets: [
-                    { id: 16, name: "Beobachtungs-Gasse", price: 270, hotelCost: 135, owner: null, hasHotel: false },
-                    { id: 17, name: "Dienst-Allee", price: 300, hotelCost: 150, owner: null, hasHotel: false },
-                    { id: 18, name: "Demütigungs-Straße", price: 340, hotelCost: 170, owner: null, hasHotel: false }
-                ]
-            },
-            keuschheit: {
-                name: "🔒 Keuschheit",
-                color: "keuschheit",
-                streets: [
-                    { id: 19, name: "Enthaltsamkeits-Allee", price: 350, hotelCost: 175, owner: null, hasHotel: false },
-                    { id: 20, name: "Käfig-Gasse", price: 400, hotelCost: 200, owner: null, hasHotel: false },
-                    { id: 21, name: "Kontrolle-Boulevard", price: 450, hotelCost: 225, owner: null, hasHotel: false }
-                ]
-            }
-        };
-
-        // =================== BOARD POSITIONS (Rechteck, GLEICHE Verteilung) ===================
-        const boardPositions = [
+        // Board positions (29 Felder - vom funktionierenden Layout)
+        const positions = [
             // Unten (START) - 8 Felder
-            { top: '88%', left: '88%', theme: 'corner', name: 'LOS' },
-            { top: '88%', left: '76%', theme: 'romantik', streetId: 1 },
-            { top: '88%', left: '64%', theme: 'corner', name: '🎁' },
-            { top: '88%', left: '52%', theme: 'romantik', streetId: 2 },
-            { top: '88%', left: '40%', theme: 'corner', name: '💡' },
-            { top: '88%', left: '28%', theme: 'romantik', streetId: 3 },
-            { top: '88%', left: '16%', theme: 'kuscheln', streetId: 4 },
-            { top: '88%', left: '8%', theme: 'corner', name: '⚡' },
+            { pos: 0, type: 'corner', name: 'LOS', top: '88%', left: '88%' },
+            { pos: 1, type: 'street', id: 1, top: '88%', left: '76%' },
+            { pos: 2, type: 'corner', name: '🎁', top: '88%', left: '64%' },
+            { pos: 3, type: 'street', id: 2, top: '88%', left: '52%' },
+            { pos: 4, type: 'corner', name: '💡', top: '88%', left: '40%' },
+            { pos: 5, type: 'street', id: 3, top: '88%', left: '28%' },
+            { pos: 6, type: 'street', id: 4, top: '88%', left: '16%' },
+            { pos: 7, type: 'corner', name: '⚡', top: '88%', left: '8%' },
             
-            // Links - 7 Felder (gleich wie rechts!)
-            { top: '76%', left: '8%', theme: 'kuscheln', streetId: 5 },
-            { top: '64%', left: '8%', theme: 'corner', name: '🎲' },
-            { top: '52%', left: '8%', theme: 'kuscheln', streetId: 6 },
-            { top: '40%', left: '8%', theme: 'femdom', streetId: 7 },
-            { top: '28%', left: '8%', theme: 'femdom', streetId: 8 },
-            { top: '16%', left: '8%', theme: 'corner', name: '💡' },
-            { top: '8%', left: '8%', theme: 'corner', name: '⏸️' },
+            // Links - 7 Felder
+            { pos: 8, type: 'street', id: 5, top: '76%', left: '8%' },
+            { pos: 9, type: 'corner', name: '🎲', top: '64%', left: '8%' },
+            { pos: 10, type: 'street', id: 6, top: '52%', left: '8%' },
+            { pos: 11, type: 'street', id: 7, top: '40%', left: '8%' },
+            { pos: 12, type: 'street', id: 8, top: '28%', left: '8%' },
+            { pos: 13, type: 'corner', name: '💡', top: '16%', left: '8%' },
+            { pos: 14, type: 'corner', name: '⏸️', top: '8%', left: '8%' },
             
-            // Oben - 8 Felder
-            { top: '8%', left: '16%', theme: 'femdom', streetId: 9 },
-            { top: '8%', left: '28%', theme: 'bdsm', streetId: 10 },
-            { top: '8%', left: '40%', theme: 'bdsm', streetId: 11 },
-            { top: '8%', left: '52%', theme: 'corner', name: '🅿️' },
-            { top: '8%', left: '64%', theme: 'bdsm', streetId: 12 },
-            { top: '8%', left: '76%', theme: 'hotwife', streetId: 13 },
-            { top: '8%', left: '88%', theme: 'hotwife', streetId: 14 },
+            // Oben - 7 Felder
+            { pos: 15, type: 'street', id: 9, top: '8%', left: '16%' },
+            { pos: 16, type: 'street', id: 10, top: '8%', left: '28%' },
+            { pos: 17, type: 'street', id: 11, top: '8%', left: '40%' },
+            { pos: 18, type: 'corner', name: '🅿️', top: '8%', left: '52%' },
+            { pos: 19, type: 'street', id: 12, top: '8%', left: '64%' },
+            { pos: 20, type: 'street', id: 13, top: '8%', left: '76%' },
+            { pos: 21, type: 'street', id: 14, top: '8%', left: '88%' },
             
-            // Rechts - 7 Felder (gleich wie links!)
-            { top: '16%', left: '88%', theme: 'hotwife', streetId: 15 },
-            { top: '28%', left: '88%', theme: 'cuckold', streetId: 16 },
-            { top: '40%', left: '88%', theme: 'cuckold', streetId: 17 },
-            { top: '52%', left: '88%', theme: 'cuckold', streetId: 18 },
-            { top: '64%', left: '88%', theme: 'keuschheit', streetId: 19 },
-            { top: '76%', left: '88%', theme: 'keuschheit', streetId: 20 },
-            { top: '82%', left: '88%', theme: 'keuschheit', streetId: 21 },
-            
-            // ZENTRUM für Würfel & Buttons (besser zentriert)
-            { top: '48%', left: '50%', theme: 'center', name: 'CENTER' }
+            // Rechts - 7 Felder
+            { pos: 22, type: 'street', id: 15, top: '16%', left: '88%' },
+            { pos: 23, type: 'street', id: 16, top: '28%', left: '88%' },
+            { pos: 24, type: 'street', id: 17, top: '40%', left: '88%' },
+            { pos: 25, type: 'street', id: 18, top: '52%', left: '88%' },
+            { pos: 26, type: 'street', id: 19, top: '64%', left: '88%' },
+            { pos: 27, type: 'street', id: 20, top: '76%', left: '88%' },
+            { pos: 28, type: 'street', id: 21, top: '82%', left: '88%' }
         ];
 
-        // =================== INIT ===================
-        function initGame() {
+        // =================== RENDER ===================
+        function render() {
             renderBoard();
-            renderThemeBlocks();
-            renderTasksOverview();
-            updatePlayerInfo();
-            setupEventListeners();
+            renderThemes();
+            renderTasks();
+            updateUI();
         }
 
-        // =================== RENDER TASKS OVERVIEW ===================
-        function renderTasksOverview() {
-            const container = document.getElementById('tasksContainer');
-            container.innerHTML = '';
-            
-            Object.entries(taskCategories).forEach(([key, category]) => {
-                const taskBlock = document.createElement('div');
-                taskBlock.className = 'task-container';
-                taskBlock.innerHTML = `
-                    <div class="task-category">${category.name}</div>
-                    <ul class="task-list">
-                        ${category.tasks.map(task => `<li>${task}</li>`).join('')}
-                    </ul>
-                `;
-                container.appendChild(taskBlock);
-            });
-        }
-
-        // =================== MONOPOLY CHECK ===================
-        function hasMonopoly(player, themeKey) {
-            return themeBlocks[themeKey].streets.every(s => s.owner === player);
-        }
-
-        // =================== RENDER BOARD ===================
         function renderBoard() {
-            const container = document.getElementById('boardContainer');
-            container.innerHTML = '';
+            const board = document.getElementById('board');
+            board.innerHTML = '';
             
-            boardPositions.forEach((pos, index) => {
+            // Render cells
+            positions.forEach(p => {
                 const cell = document.createElement('div');
-                
-                // ZENTRUM - Würfel & Buttons
-                if (pos.theme === 'center') {
-                    cell.className = 'cell-center';
-                    cell.style.top = pos.top;
-                    cell.style.left = pos.left;
-                    cell.style.transform = 'translate(-50%, -50%)';
-                    cell.innerHTML = `
-                        <div class="center-die" id="centerDie">?</div>
-                        <div class="center-buttons">
-                            <button class="center-btn" id="centerRollBtn">🎲</button>
-                            <button class="center-btn secondary" id="centerEndBtn">⏭️</button>
-                        </div>
-                    `;
-                    container.appendChild(cell);
-                    
-                    // Event listeners für Center-Buttons
-                    setTimeout(() => {
-                        document.getElementById('centerRollBtn').addEventListener('click', rollDice);
-                        document.getElementById('centerEndBtn').addEventListener('click', endTurn);
-                    }, 100);
-                    return;
-                }
-                
-                cell.className = `board-cell cell-${pos.theme}`;
-                cell.style.top = pos.top;
-                cell.style.left = pos.left;
+                cell.className = 'cell';
+                cell.style.position = 'absolute';
+                cell.style.top = p.top;
+                cell.style.left = p.left;
                 cell.style.transform = 'translate(-50%, -50%)';
-                cell.id = `cell-${index}`;
+                cell.id = `cell-${p.pos}`;
                 
-                if (pos.theme === 'corner') {
-                    cell.innerHTML = `<div class="cell-name">${pos.name}</div>`;
+                if (p.type === 'corner') {
+                    cell.className += ' cell-corner';
+                    cell.innerHTML = `<div>${p.name}</div>`;
                 } else {
-                    const theme = Object.values(themeBlocks).find(t => 
-                        t.streets.some(s => s.id === pos.streetId)
-                    );
-                    const street = theme?.streets.find(s => s.id === pos.streetId);
+                    const s = streets[p.id];
+                    cell.className += ` cell-street ${s.theme}`;
+                    if (s.owner) cell.className += ` owned-${s.owner}`;
                     
-                    if (street) {
-                        // STARKE BESITZER-MARKIERUNG
-                        if (street.owner) {
-                            cell.classList.add(`owned-${street.owner}`);
-                        }
-                        
-                        cell.innerHTML = `
-                            <div class="cell-name">${street.name}</div>
-                            <div class="cell-price">€${street.price}</div>
-                        `;
-                        
-                        if (street.owner) {
-                            const badge = document.createElement('div');
-                            badge.className = 'cell-owner-badge';
-                            badge.textContent = street.owner === 'frau' ? '👑' : '🔒';
-                            cell.appendChild(badge);
-                        }
-                        
-                        if (street.hasHotel) {
-                            const hotel = document.createElement('div');
-                            hotel.className = 'hotel-indicator';
-                            hotel.textContent = '🏨';
-                            cell.appendChild(hotel);
-                        }
+                    cell.innerHTML = `
+                        <div class="cell-name">${s.name}</div>
+                        <div class="cell-price">€${s.price}</div>
+                    `;
+                    
+                    if (s.owner) {
+                        const badge = document.createElement('div');
+                        badge.className = 'owner-badge';
+                        badge.textContent = s.owner === 'frau' ? '👑' : '🔒';
+                        cell.appendChild(badge);
+                    }
+                    
+                    if (s.hasHotel) {
+                        const hotel = document.createElement('div');
+                        hotel.className = 'hotel';
+                        hotel.textContent = '🏨';
+                        cell.appendChild(hotel);
                     }
                 }
                 
-                container.appendChild(cell);
+                board.appendChild(cell);
             });
             
-            updatePlayerMarkers();
+            // Center
+            const center = document.createElement('div');
+            center.className = 'center';
+            center.innerHTML = `
+                <div class="center-die" id="centerDie">?</div>
+                <div class="center-btns">
+                    <button class="center-btn" id="centerRoll" onclick="rollDice()">🎲</button>
+                    <button class="center-btn secondary" id="centerEnd" onclick="endTurn()">⏭️</button>
+                </div>
+            `;
+            board.appendChild(center);
+            
+            // Markers
+            ['frau', 'mann'].forEach(player => {
+                const pos = game[player].pos;
+                const cell = document.getElementById(`cell-${pos}`);
+                if (cell) {
+                    const marker = document.createElement('div');
+                    marker.className = `marker marker-${player}`;
+                    marker.textContent = player === 'frau' ? '👑' : '🔒';
+                    cell.appendChild(marker);
+                }
+            });
         }
 
-        function updatePlayerMarkers() {
-            document.querySelectorAll('.player-marker').forEach(m => m.remove());
-            
-            const frauCell = document.getElementById(`cell-${gameState.frauPosition}`);
-            const mannCell = document.getElementById(`cell-${gameState.mannPosition}`);
-            
-            if (frauCell) {
-                const m = document.createElement('div');
-                m.className = 'player-marker marker-frau';
-                m.textContent = '👑';
-                frauCell.appendChild(m);
-            }
-            
-            if (mannCell) {
-                const m = document.createElement('div');
-                m.className = 'player-marker marker-mann';
-                m.textContent = '🔒';
-                mannCell.appendChild(m);
-            }
-        }
-
-        // =================== RENDER THEMES ===================
-        function renderThemeBlocks() {
-            const container = document.getElementById('themeBlocksContainer');
+        function renderThemes() {
+            const container = document.getElementById('themes');
             container.innerHTML = '';
             
-            Object.entries(themeBlocks).forEach(([key, theme]) => {
-                const ownedByFrau = theme.streets.filter(s => s.owner === 'frau').length;
-                const ownedByMann = theme.streets.filter(s => s.owner === 'mann').length;
-                const hotels = theme.streets.filter(s => s.hasHotel).length;
-                const frauMonopoly = hasMonopoly('frau', key);
-                const mannMonopoly = hasMonopoly('mann', key);
+            Object.entries(themes).forEach(([key, t]) => {
+                const owned = t.streets.filter(id => streets[id].owner).length;
+                const frauOwned = t.streets.filter(id => streets[id].owner === 'frau').length;
+                const mannOwned = t.streets.filter(id => streets[id].owner === 'mann').length;
+                const frauMonopoly = t.streets.every(id => streets[id].owner === 'frau');
+                const mannMonopoly = t.streets.every(id => streets[id].owner === 'mann');
+                const hotels = t.streets.filter(id => streets[id].hasHotel).length;
                 
-                const block = document.createElement('div');
-                block.className = 'theme-block';
-                block.style.borderLeftColor = `var(--${theme.color})`;
-                
-                block.innerHTML = `
+                const div = document.createElement('div');
+                div.className = 'theme';
+                div.style.borderLeftColor = `var(--${t.color})`;
+                div.innerHTML = `
                     <div class="theme-header">
                         <div class="theme-name">
-                            ${theme.name}
+                            ${t.name}
                             ${frauMonopoly ? '<span class="monopoly-badge">👑 MONOPOL</span>' : ''}
                             ${mannMonopoly ? '<span class="monopoly-badge">🔒 MONOPOL</span>' : ''}
                         </div>
-                        <div class="theme-stats">
-                            <span>👑${ownedByFrau}</span>
-                            <span>🔒${ownedByMann}</span>
-                            <span>🏨${hotels}</span>
+                        <div style="font-size: 0.7rem;">
+                            <span>👑${frauOwned}</span>
+                            <span style="margin-left: 4px;">🔒${mannOwned}</span>
+                            <span style="margin-left: 4px;">🏨${hotels}</span>
                         </div>
                     </div>
-                    <div class="streets-grid">
-                        ${theme.streets.map(s => `
-                            <div class="street-item">
+                    <div class="streets">
+                        ${t.streets.map(id => {
+                            const s = streets[id];
+                            return `<div class="street">
                                 <span>${s.name}</span>
-                                <span>
-                                    ${s.owner === 'frau' ? '👑' : s.owner === 'mann' ? '🔒' : '⚪'}
-                                    ${s.hasHotel ? '🏨' : ''}
-                                </span>
-                            </div>
-                        `).join('')}
+                                <span>${s.owner === 'frau' ? '👑' : s.owner === 'mann' ? '🔒' : '⚪'}${s.hasHotel ? '🏨' : ''}</span>
+                            </div>`;
+                        }).join('')}
                     </div>
                 `;
-                
-                container.appendChild(block);
+                container.appendChild(div);
             });
         }
 
-        // =================== UPDATE INFO ===================
-        function updatePlayerInfo() {
-            document.getElementById('headerFrauMoney').textContent = `€${gameState.frauMoney}`;
-            document.getElementById('headerMannMoney').textContent = `€${gameState.mannMoney}`;
+        function renderTasks() {
+            const container = document.getElementById('tasks');
+            container.innerHTML = '';
             
-            const allStreets = Object.values(themeBlocks).flatMap(t => t.streets);
-            const frauHotels = allStreets.filter(s => s.owner === 'frau' && s.hasHotel).length;
-            const mannHotels = allStreets.filter(s => s.owner === 'mann' && s.hasHotel).length;
-            
-            document.getElementById('headerFrauHotels').textContent = frauHotels;
-            document.getElementById('headerMannHotels').textContent = mannHotels;
-            
-            document.getElementById('headerCurrentPlayer').textContent = 
-                `Aktuell: ${gameState.currentPlayer === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}`;
+            Object.values(tasks).forEach(t => {
+                const div = document.createElement('div');
+                div.className = 'task-cat';
+                div.innerHTML = `
+                    <div class="task-title">${t.name}</div>
+                    <ul class="task-list">
+                        ${t.list.map(task => `<li>${task}</li>`).join('')}
+                    </ul>
+                `;
+                container.appendChild(div);
+            });
         }
 
-        // =================== DICE ===================
+        function updateUI() {
+            document.getElementById('frauMoney').textContent = game.frau.money;
+            document.getElementById('mannMoney').textContent = game.mann.money;
+            
+            const frauHotels = Object.values(streets).filter(s => s.owner === 'frau' && s.hasHotel).length;
+            const mannHotels = Object.values(streets).filter(s => s.owner === 'mann' && s.hasHotel).length;
+            
+            document.getElementById('frauHotels').textContent = frauHotels;
+            document.getElementById('mannHotels').textContent = mannHotels;
+            
+            // Disable/Enable buttons
+            const canRoll = !game.rolled && game.active;
+            ['headerRoll', 'centerRoll'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.disabled = !canRoll;
+            });
+        }
+
+        // =================== GAME LOGIC ===================
         function rollDice() {
-            if (!gameState.gameActive) return;
+            if (game.rolled || !game.active) return;
             
-            const headerDie = document.getElementById('die1');
-            const centerDie = document.getElementById('centerDie');
-            
-            if (headerDie) headerDie.classList.add('rolling');
-            if (centerDie) centerDie.classList.add('rolling');
+            const dice = [document.getElementById('headerDie'), document.getElementById('centerDie')];
+            dice.forEach(d => { if (d) d.classList.add('rolling'); });
             
             setTimeout(() => {
-                let roll = Math.floor(Math.random() * 6) + 1;
+                const roll = Math.floor(Math.random() * 6) + 1;
+                dice.forEach(d => {
+                    if (d) {
+                        d.textContent = roll;
+                        d.classList.remove('rolling');
+                    }
+                });
                 
-                if (gameState.currentPlayer === 'frau' && Math.random() < gameState._h.ld) {
-                    roll = Math.min(6, roll + 1);
-                }
-                
-                if (headerDie) {
-                    headerDie.textContent = roll;
-                    headerDie.classList.remove('rolling');
-                }
-                if (centerDie) {
-                    centerDie.textContent = roll;
-                    centerDie.classList.remove('rolling');
-                }
+                game.rolled = true;
+                updateUI();
                 
                 setTimeout(() => {
                     movePlayer(roll);
-                    document.getElementById('rollBtn').disabled = true;
-                    const centerRoll = document.getElementById('centerRollBtn');
-                    if (centerRoll) centerRoll.disabled = true;
                 }, 300);
             }, 500);
         }
 
-        // =================== MOVE ===================
         function movePlayer(spaces) {
-            const player = gameState.currentPlayer;
-            let oldPos = player === 'frau' ? gameState.frauPosition : gameState.mannPosition;
-            let newPos = (oldPos + spaces) % boardPositions.length;
+            const player = game.current;
+            const oldPos = game[player].pos;
+            let newPos = (oldPos + spaces) % 29;
             
-            if (player === 'frau') {
-                gameState.frauPosition = newPos;
-            } else {
-                gameState.mannPosition = newPos;
-            }
+            game[player].pos = newPos;
             
+            // Pass LOS
             if (newPos < oldPos) {
-                collectPassGo(player);
+                game[player].money += 200;
+                alert(`🎯 LOS! +€200`);
             }
             
-            updatePlayerMarkers();
-            updatePlayerInfo();
+            render();
             
-            setTimeout(() => handleCellLanding(newPos), 500);
+            setTimeout(() => {
+                handleLanding(newPos);
+            }, 500);
         }
 
-        // =================== LANDING ===================
-        function handleCellLanding(position) {
-            const cell = boardPositions[position];
-            const player = gameState.currentPlayer;
+        function handleLanding(pos) {
+            const p = positions.find(x => x.pos === pos);
             
-            if (cell.theme === 'corner') {
-                handleCorner(cell.name, player);
+            if (p.type === 'corner') {
+                handleCorner(p.name);
             } else {
-                const theme = Object.values(themeBlocks).find(t => 
-                    t.streets.some(s => s.id === cell.streetId)
-                );
-                const street = theme?.streets.find(s => s.id === cell.streetId);
-                const themeKey = Object.keys(themeBlocks).find(k => themeBlocks[k] === theme);
+                const s = streets[p.id];
                 
-                if (!street.owner) {
-                    offerPurchase(player, street);
-                } else if (street.owner !== player && street.hasHotel) {
-                    handleHotelLanding(player, street, theme, themeKey);
-                } else if (street.owner === player && !street.hasHotel && hasMonopoly(player, themeKey)) {
-                    offerHotel(player, street);
+                if (!s.owner) {
+                    offerPurchase(s);
+                } else if (s.owner !== game.current && s.hasHotel) {
+                    handleHotel(s);
+                } else if (s.owner === game.current && !s.hasHotel && hasMonopoly(game.current, s.theme)) {
+                    offerHotel(s);
                 }
             }
         }
 
-        // =================== PURCHASE ===================
-        function offerPurchase(player, street) {
-            if (confirm(`"${street.name}" für €${street.price} kaufen?`)) {
-                let price = street.price;
-                if (player === 'frau' && Math.random() < 0.35) price = Math.floor(price * 0.9);
-                
-                if ((player === 'frau' ? gameState.frauMoney : gameState.mannMoney) >= price) {
-                    if (player === 'frau') gameState.frauMoney -= price;
-                    else gameState.mannMoney -= price;
-                    
-                    street.owner = player;
-                    alert(`✅ Gekauft für €${price}!`);
-                    renderBoard();
-                    renderThemeBlocks();
-                    updatePlayerInfo();
+        function offerPurchase(s) {
+            if (confirm(`"${s.name}" für €${s.price} kaufen?`)) {
+                if (game[game.current].money >= s.price) {
+                    game[game.current].money -= s.price;
+                    s.owner = game.current;
+                    alert(`✅ Gekauft!`);
+                    render();
                 } else {
                     alert('❌ Nicht genug Geld!');
                 }
             }
         }
 
-        // =================== HOTEL ===================
-        function offerHotel(player, street) {
-            if (confirm(`🏨 Hotel für €${street.hotelCost} bauen? (Du hast MONOPOL!)`)) {
-                let cost = street.hotelCost;
-                if (player === 'frau') cost = Math.floor(cost / gameState._h.hd);
-                
-                if ((player === 'frau' ? gameState.frauMoney : gameState.mannMoney) >= cost) {
-                    if (player === 'frau') gameState.frauMoney -= cost;
-                    else gameState.mannMoney -= cost;
-                    
-                    street.hasHotel = true;
-                    alert(`🏨 Hotel gebaut für €${cost}!`);
-                    renderBoard();
-                    renderThemeBlocks();
-                    updatePlayerInfo();
+        function offerHotel(s) {
+            if (confirm(`🏨 Hotel für €${s.hotel} bauen?`)) {
+                if (game[game.current].money >= s.hotel) {
+                    game[game.current].money -= s.hotel;
+                    s.hasHotel = true;
+                    alert(`🏨 Hotel gebaut!`);
+                    render();
                 } else {
                     alert('❌ Nicht genug Geld!');
                 }
             }
         }
 
-        // =================== HOTEL LANDING ===================
-        function handleHotelLanding(player, street, theme, themeKey) {
-            const owner = street.owner;
-            let rent = Math.floor(street.price * 0.3);
-            
-            if (player === 'frau' && owner === 'mann') {
-                rent = Math.floor(rent * gameState._h.rd);
-            }
-            
-            const choice = confirm(
-                `🏨 Hotel "${street.name}"!\n\n💰 Miete: €${rent}\n\nOK = Zahlen | ABBRECHEN = Aufgabe`
-            );
+        function handleHotel(s) {
+            const rent = Math.floor(s.price * 0.3);
+            const choice = confirm(`🏨 Hotel "${s.name}"!\n\n💰 Miete: €${rent}\n\nOK = Zahlen | ABBRECHEN = Aufgabe`);
             
             if (choice) {
-                if (player === 'frau') {
-                    gameState.frauMoney -= rent;
-                    gameState.mannMoney += rent;
-                } else {
-                    gameState.mannMoney -= rent;
-                    gameState.frauMoney += rent;
-                }
+                game[game.current].money -= rent;
+                game[s.owner].money += rent;
                 alert(`💰 €${rent} gezahlt!`);
-                updatePlayerInfo();
+                render();
             } else {
-                showTask(player, owner, themeKey);
+                showTask(s.theme);
             }
         }
 
-        // =================== SHOW TASK ===================
-        function showTask(performer, giver, themeKey) {
-            const category = taskCategories[themeKey];
-            const tasks = category.tasks;
-            let task = tasks[Math.floor(Math.random() * tasks.length)];
+        function showTask(theme) {
+            const t = tasks[theme];
+            const task = t.list[Math.floor(Math.random() * t.list.length)];
             
-            if (performer === 'frau' && Math.random() < gameState._h.et) {
-                const easy = ["Umarme Partner 30 Sek", "Sage 2 Komplimente", "Küsse auf Wange"];
-                task = easy[Math.floor(Math.random() * easy.length)];
-            }
-            
-            const modal = document.getElementById('taskModal');
+            const modal = document.getElementById('modal');
             modal.className = 'modal';
             modal.innerHTML = `
                 <div class="modal-content">
-                    <div class="modal-title">🏨 ${category.name}</div>
+                    <div class="modal-title">🏨 ${t.name}</div>
                     <div class="modal-text">${task}</div>
-                    <div style="text-align: center; font-size: 0.8rem; margin-bottom: 15px;">
-                        <strong>Ausführend:</strong> ${performer === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <strong>Ausführend:</strong> ${game.current === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}
                     </div>
-                    <div class="modal-buttons">
-                        <button class="btn btn-success" onclick="completeTask()">✅ Erledigt</button>
+                    <div class="modal-btns">
+                        <button class="btn btn-success" onclick="closeModal()">✅ Erledigt</button>
                         <button class="btn btn-danger" onclick="skipTask()">⏭️ Überspringen (€50)</button>
                     </div>
                 </div>
             `;
-            
-            gameState.gameActive = false;
-            document.getElementById('rollBtn').disabled = true;
-        }
-
-        function completeTask() {
-            document.getElementById('taskModal').className = 'hidden';
-            alert('✅ Super!');
-            gameState.gameActive = true;
-            document.getElementById('rollBtn').disabled = false;
+            game.active = false;
         }
 
         function skipTask() {
-            if (gameState.currentPlayer === 'frau') gameState.frauMoney -= 50;
-            else gameState.mannMoney -= 50;
-            
-            document.getElementById('taskModal').className = 'hidden';
+            game[game.current].money -= 50;
             alert('⏭️ -€50');
-            gameState.gameActive = true;
-            document.getElementById('rollBtn').disabled = false;
-            updatePlayerInfo();
+            closeModal();
         }
 
-        // =================== PASS GO ===================
-        function collectPassGo(player) {
-            let amount = 200;
-            if (player === 'frau') amount += gameState._h.pb;
-            
-            if (player === 'frau') gameState.frauMoney += amount;
-            else gameState.mannMoney += amount;
-            
-            alert(`🎯 LOS! +€${amount}`);
-            updatePlayerInfo();
+        function closeModal() {
+            document.getElementById('modal').className = 'hidden';
+            game.active = true;
+            updateUI();
         }
 
-        // =================== CORNER ===================
-        function handleCorner(name, player) {
-            if (name.includes('EVENT') || name.includes('AKTION') || name.includes('BONUS') || name.includes('GLÜCK')) {
+        function handleCorner(name) {
+            if (name.includes('💡') || name.includes('🎁') || name.includes('⚡') || name.includes('🎲')) {
                 const events = [
-                    { text: "💰 +€150", f: () => {
-                        if (player === 'frau') gameState.frauMoney += 150;
-                        else gameState.mannMoney += 150;
-                    }},
-                    { text: "💸 Zahle €100", f: () => {
-                        if (player === 'frau') {
-                            gameState.frauMoney -= 100;
-                            gameState.mannMoney += 100;
-                        } else {
-                            gameState.mannMoney -= 100;
-                            gameState.frauMoney += 100;
-                        }
-                    }},
-                    { text: "🎲 Nochmal!", f: () => setTimeout(rollDice, 1000) },
-                    { text: "🎁 +€200 Geschenk!", f: () => {
-                        if (player === 'frau') gameState.frauMoney += 200;
-                        else gameState.mannMoney += 200;
-                    }}
+                    () => { game[game.current].money += 150; alert('💰 +€150'); },
+                    () => { game[game.current].money += 200; alert('🎁 +€200'); },
+                    () => { 
+                        const other = game.current === 'frau' ? 'mann' : 'frau';
+                        game[game.current].money -= 100;
+                        game[other].money += 100;
+                        alert('💸 Zahle €100');
+                    }
                 ];
-                
-                let ev = events[Math.floor(Math.random() * events.length)];
-                if (player === 'frau' && Math.random() < 0.6) ev = events[0];
-                
-                alert(`💡 ${ev.text}`);
-                ev.f();
-                updatePlayerInfo();
-            } else if (name.includes('PAUSE')) {
-                alert('⏸️ 1 Runde aussetzen');
-                endTurn();
-            } else if (name.includes('PARKEN')) {
-                const b = 150;
-                if (player === 'frau') gameState.frauMoney += b;
-                else gameState.mannMoney += b;
-                alert(`🅿️ +€${b}`);
-                updatePlayerInfo();
+                events[Math.floor(Math.random() * events.length)]();
+                render();
+            } else if (name.includes('⏸️')) {
+                alert('⏸️ Aussetzen (automatisch beim Zug beenden)');
+            } else if (name.includes('🅿️')) {
+                game[game.current].money += 150;
+                alert('🅿️ +€150');
+                render();
             }
         }
 
-        // =================== END TURN ===================
-        function endTurn() {
-            gameState.currentPlayer = gameState.currentPlayer === 'frau' ? 'mann' : 'frau';
-            document.getElementById('rollBtn').disabled = false;
-            const centerRoll = document.getElementById('centerRollBtn');
-            if (centerRoll) centerRoll.disabled = false;
-            updatePlayerInfo();
+        function hasMonopoly(player, theme) {
+            const t = themes[theme];
+            return t.streets.every(id => streets[id].owner === player);
         }
 
-        // =================== HANDEL ===================
-        function startTrade() {
-            const modal = document.getElementById('taskModal');
+        function endTurn() {
+            if (!game.rolled) {
+                alert('Bitte erst würfeln!');
+                return;
+            }
+            
+            game.current = game.current === 'frau' ? 'mann' : 'frau';
+            game.rolled = false;
+            game.active = true;
+            updateUI();
+            alert(`Nächster Spieler: ${game.current === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}`);
+        }
+
+        function endGame() {
+            const frauAssets = game.frau.money + Object.values(streets)
+                .filter(s => s.owner === 'frau')
+                .reduce((sum, s) => sum + s.price + (s.hasHotel ? s.hotel : 0), 0);
+            
+            const mannAssets = game.mann.money + Object.values(streets)
+                .filter(s => s.owner === 'mann')
+                .reduce((sum, s) => sum + s.price + (s.hasHotel ? s.hotel : 0), 0);
+            
+            const winner = frauAssets > mannAssets ? '👑 EHEFRAU' : '🔒 EHEMANN';
+            const diff = Math.abs(frauAssets - mannAssets);
+            const payment = Math.round(diff / 1000);
+            
+            alert(
+                `🏁 SPIELENDE!\n\n` +
+                `👑 Ehefrau: €${frauAssets}\n` +
+                `🔒 Ehemann: €${mannAssets}\n\n` +
+                `🏆 GEWINNER: ${winner}\n\n` +
+                `💰 Zahlung: €${payment}\n` +
+                `(Differenz: €${diff} ÷ 1000)`
+            );
+        }
+
+        // =================== AKTIONEN ===================
+        function openTrade() {
+            const modal = document.getElementById('modal');
             modal.className = 'modal';
             modal.innerHTML = `
                 <div class="modal-content">
-                    <div class="modal-title">💱 Handel starten</div>
+                    <div class="modal-title">💱 Handel</div>
                     <div class="modal-text">
                         <div style="margin-bottom: 10px;">
                             <strong>Von:</strong>
@@ -1037,12 +818,12 @@
                                 <option value="frau">👑 Ehefrau</option>
                             </select>
                         </div>
-                        <div style="margin-bottom: 10px;">
+                        <div>
                             <strong>Betrag:</strong>
-                            <input type="number" id="tradeAmount" placeholder="z.B. 500" min="0" style="width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                            <input type="number" id="tradeAmount" min="0" placeholder="z.B. 500" style="width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
                         </div>
                     </div>
-                    <div class="modal-buttons">
+                    <div class="modal-btns">
                         <button class="btn btn-success" onclick="executeTrade()">✅ Handel durchführen</button>
                         <button class="btn btn-secondary" onclick="closeModal()">❌ Abbrechen</button>
                     </div>
@@ -1056,52 +837,40 @@
             const amount = parseInt(document.getElementById('tradeAmount').value) || 0;
             
             if (amount <= 0) {
-                alert('❌ Bitte Betrag eingeben!');
+                alert('❌ Betrag eingeben!');
                 return;
             }
             
-            const fromMoney = from === 'frau' ? gameState.frauMoney : gameState.mannMoney;
-            
-            if (fromMoney < amount) {
+            if (game[from].money < amount) {
                 alert('❌ Nicht genug Geld!');
                 return;
             }
             
-            if (from === 'frau') {
-                gameState.frauMoney -= amount;
-                gameState.mannMoney += amount;
-            } else {
-                gameState.mannMoney -= amount;
-                gameState.frauMoney += amount;
-            }
+            game[from].money -= amount;
+            game[to].money += amount;
             
-            alert(`✅ ${from === 'frau' ? '👑' : '🔒'} hat ${to === 'frau' ? '👑' : '🔒'} €${amount} gegeben!`);
-            updatePlayerInfo();
+            alert(`✅ ${from === 'frau' ? '👑' : '🔒'} → ${to === 'frau' ? '👑' : '🔒'}: €${amount}`);
             closeModal();
+            render();
         }
 
-        // =================== DIEBSTAHL ===================
-        function startTheft() {
-            const player = gameState.currentPlayer;
-            const cost = 200;
-            
-            if ((player === 'frau' ? gameState.frauMoney : gameState.mannMoney) < cost) {
-                alert('❌ Nicht genug Geld! Diebstahl kostet €200');
+        function openTheft() {
+            if (game[game.current].money < 200) {
+                alert('❌ Nicht genug Geld! Kostet €200');
                 return;
             }
             
-            const modal = document.getElementById('taskModal');
+            const modal = document.getElementById('modal');
             modal.className = 'modal';
             modal.innerHTML = `
                 <div class="modal-content">
                     <div class="modal-title">💰 Diebstahl</div>
                     <div class="modal-text">
-                        Du bezahlst €200 und würfelst.<br>
-                        Die Zahl × 50 = gestohlener Betrag!<br><br>
-                        <strong>Beispiel:</strong> Würfelst du 6 → €300 gestohlen
+                        Kosten: €200<br>
+                        Würfeln: Ergebnis × €50 = gestohlen
                     </div>
-                    <div class="modal-buttons">
-                        <button class="btn btn-danger" onclick="executeTheft()">💰 Diebstahl durchführen</button>
+                    <div class="modal-btns">
+                        <button class="btn btn-danger" onclick="executeTheft()">💰 Durchführen</button>
                         <button class="btn btn-secondary" onclick="closeModal()">❌ Abbrechen</button>
                     </div>
                 </div>
@@ -1109,140 +878,76 @@
         }
 
         function executeTheft() {
-            const player = gameState.currentPlayer;
-            const opponent = player === 'frau' ? 'mann' : 'frau';
-            const cost = 200;
+            game[game.current].money -= 200;
             
-            // Kosten abziehen
-            if (player === 'frau') gameState.frauMoney -= cost;
-            else gameState.mannMoney -= cost;
-            
-            // Würfeln
             const roll = Math.floor(Math.random() * 6) + 1;
             const stolen = roll * 50;
+            const other = game.current === 'frau' ? 'mann' : 'frau';
+            const actualStolen = Math.min(stolen, game[other].money);
             
-            // Geld stehlen
-            if (opponent === 'frau') {
-                const actualStolen = Math.min(stolen, gameState.frauMoney);
-                gameState.frauMoney -= actualStolen;
-                if (player === 'mann') gameState.mannMoney += actualStolen;
-                alert(`🎲 Gewürfelt: ${roll}\n💰 Gestohlen: €${actualStolen}\n\n(${player === 'frau' ? '👑' : '🔒'} hat von ${opponent === 'frau' ? '👑' : '🔒'} gestohlen!)`);
-            } else {
-                const actualStolen = Math.min(stolen, gameState.mannMoney);
-                gameState.mannMoney -= actualStolen;
-                if (player === 'frau') gameState.frauMoney += actualStolen;
-                alert(`🎲 Gewürfelt: ${roll}\n💰 Gestohlen: €${actualStolen}\n\n(${player === 'frau' ? '👑' : '🔒'} hat von ${opponent === 'frau' ? '👑' : '🔒'} gestohlen!)`);
-            }
+            game[other].money -= actualStolen;
+            game[game.current].money += actualStolen;
             
-            updatePlayerInfo();
+            alert(`🎲 ${roll} → €${actualStolen} gestohlen!`);
             closeModal();
+            render();
         }
 
-        // =================== AUFGABE ERZWINGEN ===================
-        function forceTask() {
-            const player = gameState.currentPlayer;
-            const cost = 150;
-            
-            if ((player === 'frau' ? gameState.frauMoney : gameState.mannMoney) < cost) {
-                alert('❌ Nicht genug Geld! Aufgabe erzwingen kostet €150');
+        function openForceTask() {
+            if (game[game.current].money < 150) {
+                alert('❌ Nicht genug Geld! Kostet €150');
                 return;
             }
             
-            const categories = Object.keys(taskCategories);
-            const modal = document.getElementById('taskModal');
+            const modal = document.getElementById('modal');
             modal.className = 'modal';
             modal.innerHTML = `
                 <div class="modal-content">
                     <div class="modal-title">🎯 Aufgabe erzwingen</div>
                     <div class="modal-text">
-                        Wähle ein Thema. Der Gegner muss eine zufällige Aufgabe erfüllen!<br>
-                        <strong>Kosten: €150</strong>
+                        Kosten: €150<br>
+                        Wähle Thema:
                     </div>
-                    <div style="margin: 15px 0;">
-                        <select id="forceTaskCategory" style="width: 100%; padding: 10px; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 0.9rem;">
-                            ${categories.map(key => `<option value="${key}">${taskCategories[key].name}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div class="modal-buttons">
-                        <button class="btn" onclick="executeForcedTask()">🎯 Aufgabe erzwingen</button>
+                    <select id="forceTheme" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        ${Object.entries(tasks).map(([key, t]) => `<option value="${key}">${t.name}</option>`).join('')}
+                    </select>
+                    <div class="modal-btns">
+                        <button class="btn" onclick="executeForceTask()">🎯 Erzwingen</button>
                         <button class="btn btn-secondary" onclick="closeModal()">❌ Abbrechen</button>
                     </div>
                 </div>
             `;
         }
 
-        function executeForcedTask() {
-            const player = gameState.currentPlayer;
-            const opponent = player === 'frau' ? 'mann' : 'frau';
-            const cost = 150;
-            const categoryKey = document.getElementById('forceTaskCategory').value;
-            const category = taskCategories[categoryKey];
+        function executeForceTask() {
+            game[game.current].money -= 150;
             
-            // Kosten abziehen
-            if (player === 'frau') gameState.frauMoney -= cost;
-            else gameState.mannMoney -= cost;
+            const theme = document.getElementById('forceTheme').value;
+            const t = tasks[theme];
+            const task = t.list[Math.floor(Math.random() * t.list.length)];
+            const other = game.current === 'frau' ? 'mann' : 'frau';
             
-            // Zufällige Aufgabe wählen
-            const task = category.tasks[Math.floor(Math.random() * category.tasks.length)];
-            
-            const modal = document.getElementById('taskModal');
-            modal.className = 'modal';
+            const modal = document.getElementById('modal');
             modal.innerHTML = `
                 <div class="modal-content">
-                    <div class="modal-title">🎯 ${category.name}</div>
+                    <div class="modal-title">🎯 ${t.name}</div>
                     <div class="modal-text">${task}</div>
-                    <div style="text-align: center; font-size: 0.8rem; margin-bottom: 15px;">
-                        <strong>Ausführend:</strong> ${opponent === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}<br>
-                        <strong>Erzwungen von:</strong> ${player === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <strong>Ausführend:</strong> ${other === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}<br>
+                        <strong>Erzwungen von:</strong> ${game.current === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}
                     </div>
-                    <div class="modal-buttons">
-                        <button class="btn btn-success" onclick="closeModal(); updatePlayerInfo();">✅ Erledigt</button>
+                    <div class="modal-btns">
+                        <button class="btn btn-success" onclick="closeModal(); render();">✅ Erledigt</button>
                     </div>
                 </div>
             `;
         }
 
-        function closeModal() {
-            document.getElementById('taskModal').className = 'hidden';
-        }
-
-        // =================== END GAME ===================
-        function endGame() {
-            const allStreets = Object.values(themeBlocks).flatMap(t => t.streets);
-            
-            const frauAssets = gameState.frauMoney + 
-                allStreets.filter(s => s.owner === 'frau')
-                    .reduce((sum, s) => sum + s.price + (s.hasHotel ? s.hotelCost : 0), 0);
-            
-            const mannAssets = gameState.mannMoney + 
-                allStreets.filter(s => s.owner === 'mann')
-                    .reduce((sum, s) => sum + s.price + (s.hasHotel ? s.hotelCost : 0), 0);
-            
-            const winner = frauAssets > mannAssets ? '👑 EHEFRAU' : '🔒 EHEMANN';
-            const diff = Math.abs(frauAssets - mannAssets);
-            const realPay = Math.round(diff / 1000);
-            
-            alert(
-                `🏁 SPIELENDE!\n\n` +
-                `👑 Ehefrau: €${frauAssets}\n` +
-                `🔒 Ehemann: €${mannAssets}\n\n` +
-                `🏆 GEWINNER: ${winner}!\n\n` +
-                `💰 Zahlung: €${realPay}\n` +
-                `(Differenz: €${diff} ÷ 1000)`
-            );
-        }
-
-        // =================== SETUP ===================
-        function setupEventListeners() {
-            document.getElementById('rollBtn').addEventListener('click', rollDice);
-            document.getElementById('endTurnBtn').addEventListener('click', endTurn);
-            document.getElementById('endGameBtn').addEventListener('click', endGame);
-            document.getElementById('tradeBtn').addEventListener('click', startTrade);
-            document.getElementById('theftBtn').addEventListener('click', startTheft);
-            document.getElementById('forceTaskBtn').addEventListener('click', forceTask);
-        }
-
-        window.addEventListener('DOMContentLoaded', initGame);
+        // =================== INIT ===================
+        window.onload = () => {
+            render();
+            console.log('✅ EROPOLY geladen - Viel Spaß!');
+        };
     </script>
 </body>
 </html>

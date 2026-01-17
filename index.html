@@ -18,30 +18,31 @@
             color: white; min-height: 100vh; overflow-x: hidden;
         }
         
-        /* Header - Kompakt mit allem Wichtigen */
+        /* Header - Ultra kompakt */
         .game-header {
             background: linear-gradient(135deg, #8b00ff, #ff1493, #32cd32);
-            padding: 8px; border-radius: 8px; position: sticky; top: 0; z-index: 200;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            padding: 2px; border-radius: 4px; position: sticky; top: 0; z-index: 200;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
         .header-layout {
-            display: flex; justify-content: space-between; align-items: center; gap: 6px;
+            display: flex; justify-content: space-between; align-items: center; gap: 2px;
         }
-        .header-player { flex: 1; font-size: 0.65rem; font-weight: 700; }
+        .header-player { flex: 1; font-size: 0.45rem; font-weight: 700; line-height: 1.1; }
         .header-player.left { text-align: left; color: #ff1493; }
         .header-player.right { text-align: right; color: #32cd32; }
         .header-center {
-            flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 3px;
+            flex: 0 0 auto; display: flex; align-items: center; gap: 3px;
         }
         .header-title {
-            font-family: 'Playfair Display', serif; font-size: 0.9rem;
-            font-weight: 900; letter-spacing: 1px;
+            font-family: 'Playfair Display', serif; font-size: 0.55rem;
+            font-weight: 900; letter-spacing: 0.3px; writing-mode: vertical-rl;
+            text-orientation: upright; line-height: 0.5rem;
         }
         .die {
-            width: 45px; height: 45px; background: linear-gradient(145deg, #fff, #f0f0f0);
+            width: 28px; height: 28px; background: linear-gradient(145deg, #fff, #f0f0f0);
             color: var(--bg-dark); display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem; font-weight: 700; border-radius: 8px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3); user-select: none;
+            font-size: 0.9rem; font-weight: 700; border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); user-select: none;
         }
         .die.rolling { animation: roll 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
         @keyframes roll {
@@ -49,19 +50,20 @@
             100% { transform: rotate(360deg); }
         }
         .header-buttons {
-            display: flex; gap: 4px;
+            display: flex; flex-direction: column; gap: 2px;
         }
         .btn-header {
             background: linear-gradient(135deg, #8b00ff, #ff1493);
-            color: white; border: none; padding: 5px 10px; border-radius: 15px;
-            font-size: 0.65rem; font-weight: 600; cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2); touch-action: manipulation;
+            color: white; border: none; padding: 5px 10px; border-radius: 10px;
+            font-size: 0.6rem; font-weight: 600; cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2); touch-action: manipulation;
+            white-space: nowrap;
         }
         .btn-header:active { transform: scale(0.95); }
         .btn-header.secondary { background: linear-gradient(135deg, #666, #555); }
         .current-player {
-            font-size: 0.6rem; margin-top: 3px; padding: 2px 8px;
-            background: rgba(255,215,0,0.2); border-radius: 6px; text-align: center;
+            font-size: 0.4rem; margin-top: 1px; padding: 1px 4px;
+            background: rgba(255,215,0,0.2); border-radius: 3px; text-align: center;
         }
         
         /* Container */
@@ -84,16 +86,29 @@
         }
         .board-inner { position: absolute; inset: 0; }
         .board-cell {
-            position: absolute; width: 46px; height: 46px;
+            position: absolute; width: 44px; height: 44px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 2px; border-radius: 6px; font-weight: 600;
-            font-size: 0.38rem; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-            border: 2px solid rgba(255,255,255,0.7); cursor: pointer;
-            transition: transform 0.2s;
+            text-align: center; padding: 2px; border-radius: 4px; font-weight: 600;
+            font-size: 0.36rem; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.5); cursor: pointer;
+            transition: all 0.2s;
         }
         .board-cell:active { transform: scale(0.95); }
-        .cell-name { font-weight: 700; line-height: 0.9; font-size: 0.36rem; }
-        .cell-price { font-size: 0.32rem; opacity: 0.9; margin-top: 1px; }
+        
+        /* STARKE Besitzer-Markierung - Komplette Zelle */
+        .board-cell.owned-frau {
+            border: 4px solid #ff1493 !important;
+            box-shadow: 0 0 12px rgba(255, 20, 147, 0.6), inset 0 0 15px rgba(255, 20, 147, 0.2) !important;
+            background-blend-mode: overlay;
+        }
+        .board-cell.owned-mann {
+            border: 4px solid #32cd32 !important;
+            box-shadow: 0 0 12px rgba(50, 205, 50, 0.6), inset 0 0 15px rgba(50, 205, 50, 0.2) !important;
+            background-blend-mode: overlay;
+        }
+        
+        .cell-name { font-weight: 700; line-height: 0.85; font-size: 0.34rem; }
+        .cell-price { font-size: 0.3rem; opacity: 0.9; margin-top: 1px; }
         
         /* Cell Colors */
         .cell-romantik { background: linear-gradient(135deg, var(--romantik), #c71585); color: white; }
@@ -103,13 +118,13 @@
         .cell-hotwife { background: linear-gradient(135deg, var(--hotwife), var(--romantik)); color: white; }
         .cell-cuckold { background: linear-gradient(135deg, var(--cuckold), #228b22); color: white; }
         .cell-keuschheit { background: linear-gradient(135deg, var(--keuschheit), #daa520); color: #333; }
-        .cell-corner { background: linear-gradient(135deg, #6a0dad, #8a2be2); color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 0.4rem; }
+        .cell-corner { background: linear-gradient(135deg, #6a0dad, #8a2be2); color: white; width: 44px; height: 44px; border-radius: 50%; font-size: 0.38rem; }
         
         /* Markers & Indicators */
         .player-marker {
-            position: absolute; width: 16px; height: 16px; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; font-size: 0.65rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.5); z-index: 20; border: 2px solid white;
+            position: absolute; width: 24px; height: 24px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.6); z-index: 20; border: 3px solid white;
             animation: pulse 2s ease-in-out infinite;
         }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
@@ -149,6 +164,7 @@
         .btn-secondary { background: linear-gradient(135deg, #6c757d, #5a6268); }
         .btn-success { background: linear-gradient(135deg, #4caf50, #45a049); }
         .btn-danger { background: linear-gradient(135deg, #f44336, #da190b); }
+        .btn-warning { background: linear-gradient(135deg, #ff9800, #f57c00); }
         
         /* Theme Blocks */
         .theme-block {
@@ -245,7 +261,7 @@
             <div class="header-layout">
                 <div class="header-player left">
                     👑 <span id="headerFrauMoney">€3.500</span><br>
-                    <span style="font-size: 0.55rem; opacity: 0.8;"><span id="headerFrauHotels">0</span>🏨</span>
+                    <span style="font-size: 0.4rem; opacity: 0.8;"><span id="headerFrauHotels">0</span>🏨</span>
                 </div>
                 <div class="header-center">
                     <div class="header-title">EROPOLY</div>
@@ -257,7 +273,7 @@
                 </div>
                 <div class="header-player right">
                     🔒 <span id="headerMannMoney">€3.500</span><br>
-                    <span style="font-size: 0.55rem; opacity: 0.8;"><span id="headerMannHotels">0</span>🏨</span>
+                    <span style="font-size: 0.4rem; opacity: 0.8;"><span id="headerMannHotels">0</span>🏨</span>
                 </div>
             </div>
             <div class="current-player" id="headerCurrentPlayer">Aktuell: 👑 Ehefrau</div>
@@ -291,6 +307,14 @@
                 <section class="section">
                     <h2 class="section-title">🏘️ Straßen & Monopole</h2>
                     <div id="themeBlocksContainer"></div>
+                </section>
+                
+                <!-- Aktionen -->
+                <section class="section">
+                    <h2 class="section-title">⚡ Aktionen</h2>
+                    <button class="btn btn-warning" id="tradeBtn">💱 Handel (Kostenlos)</button>
+                    <button class="btn btn-danger" id="theftBtn">💰 Diebstahl (€200)</button>
+                    <button class="btn" id="forceTaskBtn">🎯 Aufgabe erzwingen (€150)</button>
                 </section>
                 
                 <!-- Aufgaben-Container (Editierbar) -->
@@ -460,47 +484,44 @@
             }
         };
 
-        // =================== BOARD POSITIONS (Quadratisch) ===================
-        // Mehr Ereignisse am Anfang für mehr Action!
+        // =================== BOARD POSITIONS (Enges Quadrat OHNE Lücken) ===================
         const boardPositions = [
-            // Unten rechts - START
-            { top: '92%', left: '92%', theme: 'corner', name: 'LOS' },
-            { top: '92%', left: '77%', theme: 'romantik', streetId: 1 },
-            { top: '92%', left: '62%', theme: 'corner', name: '🎁 BONUS' },  // EVENT
-            { top: '92%', left: '47%', theme: 'romantik', streetId: 2 },
-            { top: '92%', left: '32%', theme: 'corner', name: '💡 EVENT' },  // EVENT
-            { top: '92%', left: '17%', theme: 'romantik', streetId: 3 },
-            { top: '92%', left: '2%', theme: 'corner', name: '⚡ AKTION' }, // EVENT
+            // Unten (START) - 7 Felder
+            { top: '90%', left: '90%', theme: 'corner', name: 'LOS' },
+            { top: '90%', left: '75%', theme: 'romantik', streetId: 1 },
+            { top: '90%', left: '60%', theme: 'corner', name: '🎁 BONUS' },
+            { top: '90%', left: '45%', theme: 'romantik', streetId: 2 },
+            { top: '90%', left: '30%', theme: 'corner', name: '💡 EVENT' },
+            { top: '90%', left: '15%', theme: 'romantik', streetId: 3 },
+            { top: '90%', left: '5%', theme: 'corner', name: '⚡ AKTION' },
             
-            // Links
-            { top: '77%', left: '2%', theme: 'kuscheln', streetId: 4 },
-            { top: '62%', left: '2%', theme: 'corner', name: '🎲 GLÜCK' }, // EVENT
-            { top: '47%', left: '2%', theme: 'kuscheln', streetId: 5 },
-            { top: '32%', left: '2%', theme: 'kuscheln', streetId: 6 },
-            { top: '17%', left: '2%', theme: 'corner', name: '💡 EVENT' }, // EVENT
-            { top: '2%', left: '2%', theme: 'corner', name: '⏸️ PAUSE' },
+            // Links - 7 Felder
+            { top: '75%', left: '5%', theme: 'kuscheln', streetId: 4 },
+            { top: '60%', left: '5%', theme: 'corner', name: '🎲 GLÜCK' },
+            { top: '45%', left: '5%', theme: 'kuscheln', streetId: 5 },
+            { top: '30%', left: '5%', theme: 'kuscheln', streetId: 6 },
+            { top: '15%', left: '5%', theme: 'corner', name: '💡 EVENT' },
+            { top: '5%', left: '5%', theme: 'corner', name: '⏸️ PAUSE' },
             
-            // Oben
-            { top: '2%', left: '17%', theme: 'femdom', streetId: 7 },
-            { top: '2%', left: '32%', theme: 'femdom', streetId: 8 },
-            { top: '2%', left: '47%', theme: 'femdom', streetId: 9 },
-            { top: '2%', left: '62%', theme: 'corner', name: '🅿️ PARKEN' },
-            { top: '2%', left: '77%', theme: 'bdsm', streetId: 10 },
-            { top: '2%', left: '92%', theme: 'bdsm', streetId: 11 },
+            // Oben - 7 Felder
+            { top: '5%', left: '15%', theme: 'femdom', streetId: 7 },
+            { top: '5%', left: '30%', theme: 'femdom', streetId: 8 },
+            { top: '5%', left: '45%', theme: 'femdom', streetId: 9 },
+            { top: '5%', left: '60%', theme: 'corner', name: '🅿️ PARKEN' },
+            { top: '5%', left: '75%', theme: 'bdsm', streetId: 10 },
+            { top: '5%', left: '90%', theme: 'bdsm', streetId: 11 },
             
-            // Rechts
-            { top: '17%', left: '92%', theme: 'bdsm', streetId: 12 },
-            { top: '32%', left: '92%', theme: 'hotwife', streetId: 13 },
-            { top: '47%', left: '92%', theme: 'hotwife', streetId: 14 },
-            { top: '62%', left: '92%', theme: 'hotwife', streetId: 15 },
-            { top: '77%', left: '92%', theme: 'cuckold', streetId: 16 },
-            
-            // Zusätzliche Felder (später weniger Events)
-            { top: '17%', left: '77%', theme: 'cuckold', streetId: 17 },
-            { top: '17%', left: '62%', theme: 'cuckold', streetId: 18 },
-            { top: '17%', left: '47%', theme: 'keuschheit', streetId: 19 },
-            { top: '17%', left: '32%', theme: 'keuschheit', streetId: 20 },
-            { top: '17%', left: '17%', theme: 'keuschheit', streetId: 21 }
+            // Rechts - 9 Felder (Hier alle verbleibenden Straßen)
+            { top: '15%', left: '90%', theme: 'bdsm', streetId: 12 },
+            { top: '22%', left: '90%', theme: 'hotwife', streetId: 13 },
+            { top: '30%', left: '90%', theme: 'hotwife', streetId: 14 },
+            { top: '38%', left: '90%', theme: 'hotwife', streetId: 15 },
+            { top: '45%', left: '90%', theme: 'cuckold', streetId: 16 },
+            { top: '52%', left: '90%', theme: 'cuckold', streetId: 17 },
+            { top: '60%', left: '90%', theme: 'cuckold', streetId: 18 },
+            { top: '68%', left: '90%', theme: 'keuschheit', streetId: 19 },
+            { top: '75%', left: '90%', theme: 'keuschheit', streetId: 20 },
+            { top: '82%', left: '90%', theme: 'keuschheit', streetId: 21 }
         ];
 
         // =================== INIT ===================
@@ -557,6 +578,11 @@
                     const street = theme?.streets.find(s => s.id === pos.streetId);
                     
                     if (street) {
+                        // STARKE BESITZER-MARKIERUNG
+                        if (street.owner) {
+                            cell.classList.add(`owned-${street.owner}`);
+                        }
+                        
                         cell.innerHTML = `
                             <div class="cell-name">${street.name}</div>
                             <div class="cell-price">€${street.price}</div>
@@ -917,6 +943,197 @@
             updatePlayerInfo();
         }
 
+        // =================== HANDEL ===================
+        function startTrade() {
+            const modal = document.getElementById('taskModal');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-title">💱 Handel starten</div>
+                    <div class="modal-text">
+                        <div style="margin-bottom: 10px;">
+                            <strong>Von:</strong>
+                            <select id="tradeFrom" style="width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                <option value="frau">👑 Ehefrau</option>
+                                <option value="mann">🔒 Ehemann</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <strong>An:</strong>
+                            <select id="tradeTo" style="width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                <option value="mann">🔒 Ehemann</option>
+                                <option value="frau">👑 Ehefrau</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <strong>Betrag:</strong>
+                            <input type="number" id="tradeAmount" placeholder="z.B. 500" min="0" style="width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        </div>
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="btn btn-success" onclick="executeTrade()">✅ Handel durchführen</button>
+                        <button class="btn btn-secondary" onclick="closeModal()">❌ Abbrechen</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function executeTrade() {
+            const from = document.getElementById('tradeFrom').value;
+            const to = document.getElementById('tradeTo').value;
+            const amount = parseInt(document.getElementById('tradeAmount').value) || 0;
+            
+            if (amount <= 0) {
+                alert('❌ Bitte Betrag eingeben!');
+                return;
+            }
+            
+            const fromMoney = from === 'frau' ? gameState.frauMoney : gameState.mannMoney;
+            
+            if (fromMoney < amount) {
+                alert('❌ Nicht genug Geld!');
+                return;
+            }
+            
+            if (from === 'frau') {
+                gameState.frauMoney -= amount;
+                gameState.mannMoney += amount;
+            } else {
+                gameState.mannMoney -= amount;
+                gameState.frauMoney += amount;
+            }
+            
+            alert(`✅ ${from === 'frau' ? '👑' : '🔒'} hat ${to === 'frau' ? '👑' : '🔒'} €${amount} gegeben!`);
+            updatePlayerInfo();
+            closeModal();
+        }
+
+        // =================== DIEBSTAHL ===================
+        function startTheft() {
+            const player = gameState.currentPlayer;
+            const cost = 200;
+            
+            if ((player === 'frau' ? gameState.frauMoney : gameState.mannMoney) < cost) {
+                alert('❌ Nicht genug Geld! Diebstahl kostet €200');
+                return;
+            }
+            
+            const modal = document.getElementById('taskModal');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-title">💰 Diebstahl</div>
+                    <div class="modal-text">
+                        Du bezahlst €200 und würfelst.<br>
+                        Die Zahl × 50 = gestohlener Betrag!<br><br>
+                        <strong>Beispiel:</strong> Würfelst du 6 → €300 gestohlen
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="btn btn-danger" onclick="executeTheft()">💰 Diebstahl durchführen</button>
+                        <button class="btn btn-secondary" onclick="closeModal()">❌ Abbrechen</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function executeTheft() {
+            const player = gameState.currentPlayer;
+            const opponent = player === 'frau' ? 'mann' : 'frau';
+            const cost = 200;
+            
+            // Kosten abziehen
+            if (player === 'frau') gameState.frauMoney -= cost;
+            else gameState.mannMoney -= cost;
+            
+            // Würfeln
+            const roll = Math.floor(Math.random() * 6) + 1;
+            const stolen = roll * 50;
+            
+            // Geld stehlen
+            if (opponent === 'frau') {
+                const actualStolen = Math.min(stolen, gameState.frauMoney);
+                gameState.frauMoney -= actualStolen;
+                if (player === 'mann') gameState.mannMoney += actualStolen;
+                alert(`🎲 Gewürfelt: ${roll}\n💰 Gestohlen: €${actualStolen}\n\n(${player === 'frau' ? '👑' : '🔒'} hat von ${opponent === 'frau' ? '👑' : '🔒'} gestohlen!)`);
+            } else {
+                const actualStolen = Math.min(stolen, gameState.mannMoney);
+                gameState.mannMoney -= actualStolen;
+                if (player === 'frau') gameState.frauMoney += actualStolen;
+                alert(`🎲 Gewürfelt: ${roll}\n💰 Gestohlen: €${actualStolen}\n\n(${player === 'frau' ? '👑' : '🔒'} hat von ${opponent === 'frau' ? '👑' : '🔒'} gestohlen!)`);
+            }
+            
+            updatePlayerInfo();
+            closeModal();
+        }
+
+        // =================== AUFGABE ERZWINGEN ===================
+        function forceTask() {
+            const player = gameState.currentPlayer;
+            const cost = 150;
+            
+            if ((player === 'frau' ? gameState.frauMoney : gameState.mannMoney) < cost) {
+                alert('❌ Nicht genug Geld! Aufgabe erzwingen kostet €150');
+                return;
+            }
+            
+            const categories = Object.keys(taskCategories);
+            const modal = document.getElementById('taskModal');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-title">🎯 Aufgabe erzwingen</div>
+                    <div class="modal-text">
+                        Wähle ein Thema. Der Gegner muss eine zufällige Aufgabe erfüllen!<br>
+                        <strong>Kosten: €150</strong>
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <select id="forceTaskCategory" style="width: 100%; padding: 10px; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2); font-size: 0.9rem;">
+                            ${categories.map(key => `<option value="${key}">${taskCategories[key].name}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="btn" onclick="executeForcedTask()">🎯 Aufgabe erzwingen</button>
+                        <button class="btn btn-secondary" onclick="closeModal()">❌ Abbrechen</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function executeForcedTask() {
+            const player = gameState.currentPlayer;
+            const opponent = player === 'frau' ? 'mann' : 'frau';
+            const cost = 150;
+            const categoryKey = document.getElementById('forceTaskCategory').value;
+            const category = taskCategories[categoryKey];
+            
+            // Kosten abziehen
+            if (player === 'frau') gameState.frauMoney -= cost;
+            else gameState.mannMoney -= cost;
+            
+            // Zufällige Aufgabe wählen
+            const task = category.tasks[Math.floor(Math.random() * category.tasks.length)];
+            
+            const modal = document.getElementById('taskModal');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-title">🎯 ${category.name}</div>
+                    <div class="modal-text">${task}</div>
+                    <div style="text-align: center; font-size: 0.8rem; margin-bottom: 15px;">
+                        <strong>Ausführend:</strong> ${opponent === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}<br>
+                        <strong>Erzwungen von:</strong> ${player === 'frau' ? '👑 Ehefrau' : '🔒 Ehemann'}
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="btn btn-success" onclick="closeModal(); updatePlayerInfo();">✅ Erledigt</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function closeModal() {
+            document.getElementById('taskModal').className = 'hidden';
+        }
+
         // =================== END GAME ===================
         function endGame() {
             const allStreets = Object.values(themeBlocks).flatMap(t => t.streets);
@@ -948,6 +1165,9 @@
             document.getElementById('rollBtn').addEventListener('click', rollDice);
             document.getElementById('endTurnBtn').addEventListener('click', endTurn);
             document.getElementById('endGameBtn').addEventListener('click', endGame);
+            document.getElementById('tradeBtn').addEventListener('click', startTrade);
+            document.getElementById('theftBtn').addEventListener('click', startTheft);
+            document.getElementById('forceTaskBtn').addEventListener('click', forceTask);
         }
 
         window.addEventListener('DOMContentLoaded', initGame);
